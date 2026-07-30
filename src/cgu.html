@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChellOS — Centre Légal & Confidentialité</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --accent: #06b6d4;
+            --bg: #090a0f;
+            --card-bg: rgba(18, 20, 32, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --gradient-hero: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Glow FX */
+        .bg-glow {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            background: rgba(9, 10, 15, 0.8);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--card-border);
+            z-index: 1000;
+        }
+
+        [data-theme="light"] nav {
+            background: rgba(248, 250, 252, 0.8);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-brand i {
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-toggle:hover {
+            border-color: var(--primary);
+        }
+
+        /* Main Layout */
+        .legal-content {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 120px 1.5rem 4rem;
+            flex: 1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        /* Tabs Switcher Header */
+        .doc-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--text-primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-hero);
+        }
+
+        .status-banner {
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            color: var(--accent);
+            font-weight: 600;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Legal Card */
+        .legal-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .legal-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .legal-card h1 {
+            font-size: 2.3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .legal-card .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .legal-card h2 {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin: 2.5rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .legal-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        .legal-card p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .legal-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .legal-card li {
+            margin-bottom: 0.55rem;
+            line-height: 1.6;
+        }
+
+        .legal-card .note {
+            background: rgba(99, 102, 241, 0.08);
+            border-left: 3px solid var(--primary);
+            padding: 1rem 1.25rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.25rem 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .legal-card .retention-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .legal-card .retention-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .legal-card .retention-table td:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+            background: var(--card-bg);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media(max-width: 768px) {
+            .legal-card { padding: 1.5rem; }
+            .legal-card h1 { font-size: 1.8rem; }
+            .doc-tabs { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-brand">
+            <i class="fas fa-robot"></i> ChellOS Legal
+        </a>
+        <div class="nav-controls">
+            <button class="btn-toggle" id="langToggle" title="Changer de langue / Switch Language">
+                <i class="fas fa-globe"></i> <span id="langText">EN / FR</span>
+            </button>
+            <button class="btn-toggle" id="themeToggle" title="Changer de thème / Toggle Theme">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="legal-content">
+        <a href="#" class="back-link" onclick="window.location.reload(); return false;"><i class="fas fa-arrow-left"></i> <span data-i18n="backHome">Retour à l'accueil</span></a>
+
+        <!-- Document Switcher Tabs -->
+        <div class="doc-tabs">
+            <button class="tab-btn active" onclick="switchDoc('terms')" data-i18n="tabTerms">Conditions d'Utilisation</button>
+            <button class="tab-btn" onclick="switchDoc('privacy')" data-i18n="tabPrivacy">Protocole de Confidentialité & RGPD</button>
+        </div>
+
+        <!-- TERMS OF USE CARD -->
+        <div id="terms-card" class="legal-card active">
+            <div class="status-banner"><i class="fas fa-file-contract"></i> <span data-i18n="termsBanner">Conditions applicables au service ChellOS, version 2026.04</span></div>
+            <h1 data-i18n="termsTitle">Conditions d'utilisation</h1>
+            <p class="subtitle" data-i18n="termsSubtitle">ChellOS est un projet bénévole, non lucratif, fourni pour des communautés Discord qui souhaitent disposer d'outils de modération, d'automatisation et d'assistance. L'utilisation du bot implique l'acceptation de ces conditions ainsi que du protocole de confidentialité.</p>
+            <div class="note" data-i18n="termsNote">Le service est fourni tel quel. Certaines fonctionnalités peuvent évoluer, être suspendues ou être retirées sans préavis afin de préserver la stabilité, la sécurité ou la conformité réglementaire du projet.</div>
+
+            <h2><i class="fas fa-check-circle"></i> <span data-i18n="t1Title">1. Acceptation</span></h2>
+            <p data-i18n="t1Desc">En invitant ou en utilisant ChellOS sur un serveur Discord, vous acceptez ces conditions d'utilisation, le protocole de confidentialité et les règles applicables de Discord. Si vous n'acceptez pas l'ensemble de ces documents, vous ne devez pas utiliser le service.</p>
+
+            <h2><i class="fas fa-robot"></i> <span data-i18n="t2Title">2. Description du service</span></h2>
+            <p data-i18n="t2Desc">ChellOS propose notamment :</p>
+            <ul>
+                <li data-i18n="t2_1">des outils de modération et d'automodération</li>
+                <li data-i18n="t2_2">des fonctions communautaires : tickets, giveaways, suggestions, niveaux, rappels</li>
+                <li data-i18n="t2_3">des outils d'administration et de configuration de serveur</li>
+                <li data-i18n="t2_4">des fonctions IA opérées localement via Chell AI</li>
+                <li data-i18n="t2_5">des intégrations optionnelles avec des services tiers pour certaines commandes spécifiques</li>
+            </ul>
+
+            <h2><i class="fas fa-scale-balanced"></i> <span data-i18n="t3Title">3. Utilisation autorisée</span></h2>
+            <p data-i18n="t3Desc">Vous vous engagez à utiliser ChellOS de manière conforme aux règles de Discord et au droit applicable. Sont notamment interdits :</p>
+            <ul>
+                <li data-i18n="t3_1">l'usage du bot pour harceler, menacer, discriminer ou perturber d'autres utilisateurs</li>
+                <li data-i18n="t3_2">l'exploitation de commandes pour contourner des règles de serveur ou nuire à une communauté</li>
+                <li data-i18n="t3_3">la tentative de détourner, casser, surcharger ou abuser du service, de ses API ou de ses protections</li>
+                <li data-i18n="t3_4">l'utilisation de ChellOS pour diffuser du contenu illégal, des tokens, identifiants, secrets ou mots de passe</li>
+                <li data-i18n="t3_5">la reproduction ou réutilisation non autorisée du code, du logo ou de l'identité visuelle du projet</li>
+            </ul>
+
+            <h2><i class="fas fa-ban"></i> <span data-i18n="t4Title">4. Interventions, sanctions et blacklist</span></h2>
+            <p data-i18n="t4Desc">Les mainteneurs du projet peuvent suspendre, limiter ou bloquer l'accès au service en cas d'abus, d'usage malveillant, de non-respect de ces conditions ou de menace pour la sécurité du bot ou des communautés protégées.</p>
+            <ul>
+                <li data-i18n="t4_1">des limitations temporaires peuvent être appliquées sur certaines fonctionnalités</li>
+                <li data-i18n="t4_2">un serveur ou un utilisateur peut être blacklisté en cas d'abus grave ou répété</li>
+                <li data-i18n="t4_3">les sanctions peuvent s'appuyer sur des journaux techniques, des événements d'automod ou des signalements reçus</li>
+            </ul>
+
+            <h2><i class="fas fa-triangle-exclamation"></i> <span data-i18n="t5Title">5. Disponibilité et absence de garantie</span></h2>
+            <p data-i18n="t5Desc">ChellOS est fourni sans garantie explicite ou implicite. Nous ne garantissons ni une disponibilité continue, ni l'absence d'erreurs, ni le maintien permanent d'une fonctionnalité précise. Des interruptions peuvent survenir pour maintenance, incident technique, évolution du projet ou dépendance externe.</p>
+
+            <h2><i class="fas fa-server"></i> <span data-i18n="t6Title">6. Limitation de responsabilité</span></h2>
+            <p data-i18n="t6Desc">Dans la limite permise par la loi, le projet ChellOS ne pourra pas être tenu responsable des dommages directs ou indirects liés à l'utilisation ou à l'indisponibilité du service, notamment :</p>
+            <ul>
+                <li data-i18n="t6_1">pertes de configuration, logs, historiques ou contenus temporaires</li>
+                <li data-i18n="t6_2">sanctions prises par des administrateurs de serveur utilisant le bot</li>
+                <li data-i18n="t6_3">conséquences d'une mauvaise configuration du bot sur un serveur</li>
+                <li data-i18n="t6_4">comportements produits par des modules IA expérimentaux ou des services tiers intégrés</li>
+            </ul>
+
+            <h2><i class="fas fa-shield-halved"></i> <span data-i18n="t7Title">7. Données personnelles et conformité</span></h2>
+            <p data-i18n="t7Desc">Les traitements de données liés à ChellOS sont détaillés sur les pages de confidentialité et RGPD. L'usage du service implique que certaines données strictement nécessaires au fonctionnement des commandes, de la modération et de l'administration puissent être traitées conformément à ces documents.</p>
+
+            <h2><i class="fas fa-code"></i> <span data-i18n="t8Title">8. Propriété intellectuelle</span></h2>
+            <p data-i18n="t8Desc">Le code, le nom ChellOS, le logo, les visuels et les éléments de marque associés restent protégés. Sauf autorisation expresse, vous ne pouvez pas reproduire, revendre, republier ou présenter comme vôtre tout ou partie du projet.</p>
+
+            <h2><i class="fas fa-pen-to-square"></i> <span data-i18n="t9Title">9. Évolution des conditions</span></h2>
+            <p data-i18n="t9Desc">Ces conditions peuvent être modifiées pour refléter l'évolution du projet, de l'infrastructure, de la réglementation ou des règles de Discord. La version publiée sur le site fait foi et s'applique dès sa mise en ligne.</p>
+
+            <h2><i class="fas fa-envelope"></i> <span data-i18n="t10Title">10. Contact</span></h2>
+            <p data-i18n="t10Desc">Pour toute question juridique ou demande relative à ces conditions, contactez le support officiel ou écrivez à <strong>contact@chell.fr</strong>.</p>
+
+            <div class="last-updated" data-i18n="termsFooter">Conditions v2026.04 — contact@chell.fr — Dernière mise à jour : Avril 2026</div>
+        </div>
+
+        <!-- PRIVACY PROTOCOL CARD -->
+        <div id="privacy-card" class="legal-card">
+            <div class="status-banner"><i class="fas fa-shield-halved"></i> <span data-i18n="privacyBanner">ChellOS est conforme au RGPD — Projet non lucratif, hébergé en France</span></div>
+            <h1 data-i18n="privacyTitle">Protocole de Confidentialité</h1>
+            <p class="subtitle" data-i18n="privacySubtitle">En utilisant <strong>ChellOS</strong>, vous acceptez ce protocole. ChellOS est un projet <strong>bénévole</strong>, hébergé en France, utilisant des systèmes d'IA sécurisés et conformes au RGPD (Chell AI). Aucune donnée n'est vendue ou partagée à des fins commerciales.</p>
+            <div class="note" data-i18n="privacyNote">Projet non lucratif, fourni tel quel (as-is), en conformité avec les lois françaises et le RGPD.</div>
+
+            <h2><i class="fas fa-shield-halved"></i> <span data-i18n="p1Title">1. Modération & Automod</span></h2>
+            <h3 data-i18n="p1_sub1">Données collectées</h3>
+            <ul>
+                <li><strong data-i18n="p1_w1">Avertissements</strong> &mdash; <span data-i18n="p1_d1">ID, modérateur, raison, date</span></li>
+                <li><strong>Strikes automod</strong> &mdash; <span data-i18n="p1_d2">compteur par utilisateur (auto-reset configurable)</span></li>
+            </ul>
+            <h3 data-i18n="p1_sub2">Automod IA</h3>
+            <p data-i18n="p1_aiDesc">Analyse en temps réel via <strong>Chell AI</strong>. Messages analysés en mémoire transitoire, non stockés. Désactivable via <code>/config-automod</code>.</p>
+            <div class="note" data-i18n="p1_aiNote">ChellOS ne stocke pas le contenu des messages.</div>
+            <p data-i18n="p1_ret">Conservation : 12 mois max pour les sanctions. Suppression sur demande (30 jours).</p>
+
+            <h2><i class="fas fa-robot"></i> <span data-i18n="p2Title">2. Intelligence Artificielle — Chell AI</span></h2>
+            <p><strong data-i18n="p2_head">Traitement IA & Normes d'Exploitation</strong></p>
+            <ul>
+                <li data-i18n="p2_1"><strong>Traitement transitoire :</strong> Les requêtes et questions adressées à Chell AI sont traitées en temps réel via des infrastructures sécurisées et sous-traitants d'API conformes au RGPD uniquement pour générer les réponses.</li>
+                <li data-i18n="p2_2"><strong>Aucun entraînement :</strong> Vos requêtes ne sont jamais vendues, diffusées ou utilisées pour l'entraînement de modèles publics.</li>
+                <li data-i18n="p2_3"><strong>Historique de contexte :</strong> Max 20 messages par serveur pour maintenir la conversation. Supprimable à tout moment avec <code>/clear-history</code>.</li>
+            </ul>
+            <div class="note">
+                <strong data-i18n="p2_warnHead">Avertissement Légal :</strong>
+                <span data-i18n="p2_warnDesc">L'IA est une fonctionnalité automatisée et expérimentale. Les réponses sont générées automatiquement à titre purement indicatif ou récréatif et ne constituent en aucun cas un conseil juridique, médical ou professionnel. ChellOS décline toute responsabilité en cas d'erreur, d'omission ou d'action entreprise sur la base des réponses générées par l'IA.</span>
+            </div>
+            <p data-i18n="p2_ret">Conservation : 30 jours max pour le contexte. Commande <code>/clear-history</code> pour purger immédiatement.</p>
+
+            <h2><i class="fas fa-users"></i> <span data-i18n="p3Title">3. Fonctionnalités Communautaires</span></h2>
+            <ul>
+                <li><strong>XP & <span data-i18n="p3_lvl">Niveaux</span></strong> &mdash; <span data-i18n="p3_d1">ID, XP, niveau par serveur</span></li>
+                <li><strong><span data-i18n="p3_note">Notes & Rappels</span></strong> &mdash; <span data-i18n="p3_d2">contenu, auteur, dates</span></li>
+                <li><strong>Tickets</strong> &mdash; <span data-i18n="p3_d3">ID, contenu, statut, dates</span></li>
+                <li><strong><span data-i18n="p3_sug">Suggestions</span></strong> &mdash; <span data-i18n="p3_d4">contenu, auteur, votes</span></li>
+                <li><strong><span data-i18n="p3_poll">Sondages</span></strong> &mdash; <span data-i18n="p3_d5">question, réponses, votes</span></li>
+                <li><strong>Giveaways</strong> &mdash; <span data-i18n="p3_d6">participants, gagnants (7 jours après fin)</span></li>
+                <li><strong>Snipe</strong> &mdash; <span data-i18n="p3_d7">mémoire uniquement (perdu au restart)</span></li>
+                <li><strong><span data-i18n="p3_cnt">Compteur</span></strong> &mdash; <span data-i18n="p3_d8">dernier utilisateur, record</span></li>
+                <li><strong><span data-i18n="p3_inter">Interserveur</span></strong> &mdash; <span data-i18n="p3_d9">messages relayés</span></li>
+            </ul>
+            <p data-i18n="p3_ret">Conservation : 12 mois max. Giveaways : 7 jours. Snipe : volatile.</p>
+
+            <h2><i class="fas fa-link"></i> <span data-i18n="p4Title">4. Services Externes</span></h2>
+            <p data-i18n="p4Desc">Intégrations externes utilisées strictement pour exécuter les commandes demandées :</p>
+            <ul>
+                <li><strong data-i18n="p4_1_k">Sous-traitants d'API IA</strong> &mdash; <span data-i18n="p4_1_v">génération de texte transitoire (conforme RGPD, sans stockage d'entraînement)</span></li>
+                <li><strong>ImgBB / GitHub</strong> &mdash; <span data-i18n="p4_2">images (sur demande)</span></li>
+                <li><strong>Short.io</strong> &mdash; <span data-i18n="p4_3">liens courts (sur demande)</span></li>
+                <li><strong>OpenWeatherMap</strong> &mdash; <span data-i18n="p4_4">météo</span></li>
+                <li><strong>Google Speech</strong> &mdash; <span data-i18n="p4_5">transcription vocale</span></li>
+                <li><strong>Twitch GQL</strong> &mdash; <span data-i18n="p4_6">noms Twitch</span></li>
+            </ul>
+            <p data-i18n="p4_foot">Ces services opèrent selon leurs propres politiques de confidentialité. Firebase : statistiques agrégées uniquement.</p>
+
+            <h2><i class="fas fa-server"></i> <span data-i18n="p5Title">5. Infrastructure</span></h2>
+            <ul>
+                <li data-i18n="p5_1">Serveurs hébergés en <strong>France / UE</strong> — accès réservé aux administrateurs du projet</li>
+                <li data-i18n="p5_2">Base de données <strong>MySQL</strong> (InnoDB) + JSON de secours</li>
+                <li data-i18n="p5_3">Connexions chiffrées (TLS/HTTPS) pour tous les échanges d'API externes</li>
+            </ul>
+
+            <h2><i class="fas fa-clock"></i> <span data-i18n="p6Title">6. Durées de conservation</span></h2>
+            <table class="retention-table">
+                <tr><td data-i18n="r1_k">Warns, notes, sanctions</td><td data-i18n="r1_v">12 mois max</td></tr>
+                <tr><td data-i18n="r2_k">Historique IA</td><td data-i18n="r2_v">30 jours max</td></tr>
+                <tr><td>Giveaways</td><td data-i18n="r3_v">7 jours après fin</td></tr>
+                <tr><td data-i18n="r4_k">Auto-reset configurable</td><td data-i18n="r4_v">Auto-reset configurable</td></tr>
+                <tr><td>Snipe</td><td data-i18n="r5_v">Mémoire (volatile)</td></tr>
+                <tr><td data-i18n="r6_k">Config serveur</td><td data-i18n="r6_v">Jusqu'au retrait du bot</td></tr>
+                <tr><td data-i18n="r7_k">XP, tickets, suggestions</td><td data-i18n="r7_v">12 mois max</td></tr>
+            </table>
+            <p data-i18n="p6_foot">Suppression automatique à expiration ou sur demande.</p>
+
+            <h2><i class="fas fa-scale-balanced"></i> <span data-i18n="p7Title">7. Vos Droits (RGPD)</span></h2>
+            <ul>
+                <li><strong data-i18n="p7_1k">Accès</strong> &mdash; <span data-i18n="p7_1v">demandez vos données</span></li>
+                <li><strong data-i18n="p7_2k">Rectification</strong> &mdash; <span data-i18n="p7_2v">corrigez des données inexactes</span></li>
+                <li><strong data-i18n="p7_3k">Suppression</strong> &mdash; <span data-i18n="p7_3v">faites supprimer vos données</span></li>
+                <li><strong data-i18n="p7_4k">Opposition</strong> &mdash; <span data-i18n="p7_4v">en rejoignant un serveur où Chell est présent, vous acceptez le traitement (politique Discord). Pour vous opposer, quittez le serveur.</span></li>
+            </ul>
+            <p data-i18n="p7_foot">Contact : support Discord ou <strong>contact@chell.fr</strong>. Réponse sous <strong>30 jours</strong>. Export de données sur demande.</p>
+
+            <h2><i class="fas fa-scroll"></i> <span data-i18n="p8Title">8. Discord Developer Policy</span></h2>
+            <ul>
+                <li data-i18n="p8_1">Aucune modification de compte sans permission</li>
+                <li data-i18n="p8_2">Pas de DM non sollicités</li>
+                <li data-i18n="p8_3">Aucune collecte de mots de passe/tokens</li>
+                <li data-i18n="p8_4">Données utilisées uniquement pour les fonctionnalités</li>
+                <li data-i18n="p8_5">Aucune vente, aucun profilage</li>
+                <li data-i18n="p8_6">Aucun scraping de contenu Discord</li>
+                <li data-i18n="p8_7">Respect des Community Guidelines Discord</li>
+                <li data-i18n="p8_8">Pas de contenu illégal — NSFW dans salons NSFW uniquement</li>
+            </ul>
+            <p data-i18n="p8_foot">Signalement : support Discord ou <strong>contact@chell.fr</strong></p>
+
+            <h2><i class="fas fa-ban"></i> <span data-i18n="p9Title">9. Sanctions & Blacklist</span></h2>
+            <ul>
+                <li><strong data-i18n="p9_1k">Données :</strong> <span data-i18n="p9_1v">ID utilisateur, raison, date</span></li>
+                <li><strong data-i18n="p9_2k">Durée :</strong> <span data-i18n="p9_2v">12 mois maximum</span></li>
+                <li><strong data-i18n="p9_3k">Contestation :</strong> <span data-i18n="p9_3v">support Discord ou <strong>contact@chell.fr</strong></span></li>
+            </ul>
+
+            <h2><i class="fas fa-file-contract"></i> <span data-i18n="p10Title">10. Conditions d'Utilisation</span></h2>
+            <ul>
+                <li data-i18n="p10_1">Gratuit et bénévole, fourni sans garantie ("en l'état")</li>
+                <li data-i18n="p10_2">Utilisation = acceptation du protocole</li>
+                <li data-i18n="p10_3">Droit d'intervention en cas d'abus</li>
+                <li data-i18n="p10_4">Reproduction du code/logo interdite</li>
+                <li data-i18n="p10_5">Pas de responsabilité pour interruptions de service</li>
+                <li data-i18n="p10_6">Exonération IA — l'utilisateur est seul responsable de l'interprétation et de l'utilisation du contenu généré par l'IA</li>
+            </ul>
+
+            <div class="last-updated" data-i18n="privacyFooter">Protocole v2026.07 — contact@chell.fr — Dernière mise à jour : Juillet 2026</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>ChellOS &copy; 2026 — <a href="mailto:contact@chell.fr">contact@chell.fr</a></p>
+    </footer>
+
+    <!-- JavaScript & Localization Dictionaries -->
+    <script>
+        const translations = {
+            fr: {
+                backHome: "Retour à l'accueil",
+                tabTerms: "Conditions d'Utilisation",
+                tabPrivacy: "Protocole de Confidentialité & RGPD",
+                termsBanner: "Conditions applicables au service ChellOS, version 2026.04",
+                termsTitle: "Conditions d'utilisation",
+                termsSubtitle: "ChellOS est un projet bénévole, non lucratif, fourni pour des communautés Discord qui souhaitent disposer d'outils de modération, d'automatisation et d'assistance. L'utilisation du bot implique l'acceptation de ces conditions ainsi que du protocole de confidentialité.",
+                termsNote: "Le service est fourni tel quel. Certaines fonctionnalités peuvent évoluer, être suspendues ou être retirées sans préavis afin de préserver la stabilité, la sécurité ou la conformité réglementaire du projet.",
+                t1Title: "1. Acceptation",
+                t1Desc: "En invitant ou en utilisant ChellOS sur un serveur Discord, vous acceptez ces conditions d'utilisation, le protocole de confidentialité et les règles applicables de Discord. Si vous n'acceptez pas l'ensemble de ces documents, vous ne devez pas utiliser le service.",
+                t2Title: "2. Description du service",
+                t2Desc: "ChellOS propose notamment :",
+                t2_1: "des outils de modération et d'automodération",
+                t2_2: "des fonctions communautaires : tickets, giveaways, suggestions, niveaux, rappels",
+                t2_3: "des outils d'administration et de configuration de serveur",
+                t2_4: "des fonctions IA opérées localement via Chell AI",
+                t2_5: "des intégrations optionnelles avec des services tiers pour certaines commandes spécifiques",
+                t3Title: "3. Utilisation autorisée",
+                t3Desc: "Vous vous engagez à utiliser ChellOS de manière conforme aux règles de Discord et au droit applicable. Sont notamment interdits :",
+                t3_1: "l'usage du bot pour harceler, menacer, discriminer ou perturber d'autres utilisateurs",
+                t3_2: "l'exploitation de commandes pour contourner des règles de serveur ou nuire à une communauté",
+                t3_3: "la tentative de détourner, casser, surcharger ou abuser du service, de ses API ou de ses protections",
+                t3_4: "l'utilisation de ChellOS pour diffuser du contenu illégal, des tokens, identifiants, secrets ou mots de passe",
+                t3_5: "la reproduction ou réutilisation non autorisée du code, du logo ou de l'identité visuelle du projet",
+                t4Title: "4. Interventions, sanctions et blacklist",
+                t4Desc: "Les mainteneurs du projet peuvent suspendre, limiter ou bloquer l'accès au service en cas d'abus, d'usage malveillant, de non-respect de ces conditions ou de menace pour la sécurité du bot ou des communautés protégées.",
+                t4_1: "des limitations temporaires peuvent être appliquées sur certaines fonctionnalités",
+                t4_2: "un serveur ou un utilisateur peut être blacklisté en cas d'abus grave ou répété",
+                t4_3: "les sanctions peuvent s'appuyer sur des journaux techniques, des événements d'automod ou des signalements reçus",
+                t5Title: "5. Disponibilité et absence de garantie",
+                t5Desc: "ChellOS est fourni sans garantie explicite ou implicite. Nous ne garantissons ni une disponibilité continue, ni l'absence d'erreurs, ni le maintien permanent d'une fonctionnalité précise. Des interruptions peuvent survenir pour maintenance, incident technique, évolution du projet ou dépendance externe.",
+                t6Title: "6. Limitation de responsabilité",
+                t6Desc: "Dans la limite permise par la loi, le projet ChellOS ne pourra pas être tenu responsable des dommages directs ou indirects liés à l'utilisation ou à l'indisponibilité du service, notamment :",
+                t6_1: "pertes de configuration, logs, historiques ou contenus temporaires",
+                t6_2: "sanctions prises par des administrateurs de serveur utilisant le bot",
+                t6_3: "conséquences d'une mauvaise configuration du bot sur un serveur",
+                t6_4: "comportements produits par des modules IA expérimentaux ou des services tiers intégrés",
+                t7Title: "7. Données personnelles et conformité",
+                t7Desc: "Les traitements de données liés à ChellOS sont détaillés sur les pages de confidentialité et RGPD. L'usage du service implique que certaines données strictement nécessaires au fonctionnement des commandes, de la modération et de l'administration puissent être traitées conformément à ces documents.",
+                t8Title: "8. Propriété intellectuelle",
+                t8Desc: "Le code, le nom ChellOS, le logo, les visuels et les éléments de marque associés restent protégés. Sauf autorisation expresse, vous ne pouvez pas reproduire, revendre, republier ou présenter comme vôtre tout ou partie du projet.",
+                t9Title: "9. Évolution des conditions",
+                t9Desc: "Ces conditions peuvent être modifiées pour refléter l'évolution du projet, de l'infrastructure, de la réglementation ou des règles de Discord. La version publiée sur le site fait foi et s'applique dès sa mise en ligne.",
+                t10Title: "10. Contact",
+                t10Desc: "Pour toute question juridique ou demande relative à ces conditions, contactez le support officiel ou écrivez à <strong>contact@chell.fr</strong>.",
+                termsFooter: "Conditions v2026.04 — contact@chell.fr — Dernière mise à jour : Avril 2026",
+
+                privacyBanner: "ChellOS est conforme au RGPD — Projet non lucratif, hébergé en France",
+                privacyTitle: "Protocole de Confidentialité",
+                privacySubtitle: "En utilisant <strong>ChellOS</strong>, vous acceptez ce protocole. ChellOS est un projet <strong>bénévole</strong>, hébergé en France, utilisant des systèmes d'IA sécurisés et conformes au RGPD (Chell AI). Aucune donnée n'est vendue ou partagée à des fins commerciales.",
+                privacyNote: "Projet non lucratif, fourni tel quel (as-is), en conformité avec les lois françaises et le RGPD.",
+                p1Title: "1. Modération & Automod",
+                p1_sub1: "Données collectées",
+                p1_w1: "Avertissements",
+                p1_d1: "ID, modérateur, raison, date",
+                p1_d2: "compteur par utilisateur (auto-reset configurable)",
+                p1_sub2: "Automod IA",
+                p1_aiDesc: "Analyse en temps réel via <strong>Chell AI</strong>. Messages analysés en mémoire transitoire, non stockés. Désactivable via <code>/config-automod</code>.",
+                p1_aiNote: "ChellOS ne stocke pas le contenu des messages.",
+                p1_ret: "Conservation : 12 mois max pour les sanctions. Suppression sur demande (30 jours).",
+                p2Title: "2. Intelligence Artificielle — Chell AI",
+                p2_head: "Traitement IA & Normes d'Exploitation",
+                p2_1: "<strong>Traitement transitoire :</strong> Les requêtes et questions adressées à Chell AI sont traitées en temps réel via des infrastructures sécurisées et sous-traitants d'API conformes au RGPD uniquement pour générer les réponses.",
+                p2_2: "<strong>Aucun entraînement :</strong> Vos requêtes ne sont jamais vendues, diffusées ou utilisées pour l'entraînement de modèles publics.",
+                p2_3: "<strong>Historique de contexte :</strong> Max 20 messages par serveur pour maintenir la conversation. Supprimable à tout moment avec <code>/clear-history</code>.",
+                p2_warnHead: "Avertissement Légal :",
+                p2_warnDesc: "L'IA est une fonctionnalité automatisée et expérimentale. Les réponses sont générées automatiquement à titre purement indicatif ou récréatif et ne constituent en aucun cas un conseil juridique, médical ou professionnel. ChellOS décline toute responsabilité en cas d'erreur, d'omission ou d'action entreprise sur la base des réponses générées par l'IA.",
+                p2_ret: "Conservation : 30 jours max pour le contexte. Commande <code>/clear-history</code> pour purger immédiatement.",
+                p3Title: "3. Fonctionnalités Communautaires",
+                p3_lvl: "Niveaux",
+                p3_note: "Notes & Rappels",
+                p3_sug: "Suggestions",
+                p3_poll: "Sondages",
+                p3_cnt: "Compteur",
+                p3_inter: "Interserveur",
+                p3_d1: "ID, XP, niveau par serveur",
+                p3_d2: "contenu, auteur, dates",
+                p3_d3: "ID, contenu, statut, dates",
+                p3_d4: "contenu, auteur, votes",
+                p3_d5: "question, réponses, votes",
+                p3_d6: "participants, gagnants (7 jours après fin)",
+                p3_d7: "mémoire uniquement (perdu au restart)",
+                p3_d8: "dernier utilisateur, record",
+                p3_d9: "messages relayés",
+                p3_ret: "Conservation : 12 mois max. Giveaways : 7 jours. Snipe : volatile.",
+                p4Title: "4. Services Externes",
+                p4Desc: "Intégrations externes utilisées strictement pour exécuter les commandes demandées :",
+                p4_1_k: "Sous-traitants d'API IA",
+                p4_1_v: "génération de texte transitoire (conforme RGPD, sans stockage d'entraînement)",
+                p4_2: "images (sur demande)",
+                p4_3: "liens courts (sur demande)",
+                p4_4: "météo",
+                p4_5: "transcription vocale",
+                p4_6: "noms Twitch",
+                p4_foot: "Ces services opèrent selon leurs propres politiques de confidentialité. Firebase : statistiques agrégées uniquement.",
+                p5Title: "5. Infrastructure",
+                p5_1: "Serveurs hébergés en <strong>France / UE</strong> — accès réservé aux administrateurs du projet",
+                p5_2: "Base de données <strong>MySQL</strong> (InnoDB) + JSON de secours",
+                p5_3: "Connexions chiffrées (TLS/HTTPS) pour tous les échanges d'API externes",
+                p6Title: "6. Durées de conservation",
+                r1_k: "Warns, notes, sanctions",
+                r1_v: "12 mois max",
+                r2_k: "Historique IA",
+                r2_v: "30 jours max",
+                r3_v: "7 jours après fin",
+                r4_k: "Auto-reset configurable",
+                r4_v: "Auto-reset configurable",
+                r5_v: "Mémoire (volatile)",
+                r6_k: "Config serveur",
+                r6_v: "Jusqu'au retrait du bot",
+                r7_k: "XP, tickets, suggestions",
+                r7_v: "12 mois max",
+                p6_foot: "Suppression automatique à expiration ou sur demande.",
+                p7Title: "7. Vos Droits (RGPD)",
+                p7_1k: "Accès",
+                p7_1v: "demandez vos données",
+                p7_2k: "Rectification",
+                p7_2v: "corrigez des données inexactes",
+                p7_3k: "Suppression",
+                p7_3v: "faites supprimer vos données",
+                p7_4k: "Opposition",
+                p7_4v: "en rejoignant un serveur où Chell est présent, vous acceptez le traitement (politique Discord). Pour vous opposer, quittez le serveur.",
+                p7_foot: "Contact : support Discord ou <strong>contact@chell.fr</strong>. Réponse sous <strong>30 jours</strong>. Export de données sur demande.",
+                p8Title: "8. Discord Developer Policy",
+                p8_1: "Aucune modification de compte sans permission",
+                p8_2: "Pas de DM non sollicités",
+                p8_3: "Aucune collecte de mots de passe/tokens",
+                p8_4: "Données utilisées uniquement pour les fonctionnalités",
+                p8_5: "Aucune vente, aucun profilage",
+                p8_6: "Aucun scraping de contenu Discord",
+                p8_7: "Respect des Community Guidelines Discord",
+                p8_8: "Pas de contenu illégal — NSFW dans salons NSFW uniquement",
+                p8_foot: "Signalement : support Discord ou <strong>contact@chell.fr</strong>",
+                p9Title: "9. Sanctions & Blacklist",
+                p9_1k: "Données :",
+                p9_1v: "ID utilisateur, raison, date",
+                p9_2k: "Durée :",
+                p9_2v: "12 mois maximum",
+                p9_3k: "Contestation :",
+                p9_3v: "support Discord ou <strong>contact@chell.fr</strong>",
+                p10Title: "10. Conditions d'Utilisation",
+                p10_1: "Gratuit et bénévole, fourni sans garantie ("en l'état")",
+                p10_2: "Utilisation = acceptation du protocole",
+                p10_3: "Droit d'intervention en cas d'abus",
+                p10_4: "Reproduction du code/logo interdite",
+                p10_5: "Pas de responsabilité pour interruptions de service",
+                p10_6: "Exonération IA — l'utilisateur est seul responsable de l'interprétation et de l'utilisation du contenu généré par l'IA",
+                privacyFooter: "Protocole v2026.07 — contact@chell.fr — Dernière mise à jour : Juillet 2026"
+            },
+            en: {
+                backHome: "Back to Home",
+                tabTerms: "Terms of Use",
+                tabPrivacy: "Privacy Protocol & GDPR",
+                termsBanner: "Terms applicable to the ChellOS service, version 2026.04",
+                termsTitle: "Terms of Use",
+                termsSubtitle: "ChellOS is a volunteer-run, non-profit project built for Discord communities that need moderation, automation, and support tools. Using the bot means accepting these terms as well as the privacy protocol.",
+                termsNote: "The service is provided as-is. Some features may evolve, be suspended, or be removed without prior notice in order to preserve the project stability, security, or regulatory compliance.",
+                t1Title: "1. Acceptance",
+                t1Desc: "By inviting or using ChellOS on a Discord server, you accept these terms of use, the privacy protocol, and the applicable Discord rules. If you do not accept all of these documents, you must not use the service.",
+                t2Title: "2. Service Description",
+                t2Desc: "ChellOS notably provides:",
+                t2_1: "moderation and automoderation tools",
+                t2_2: "community features such as tickets, giveaways, suggestions, levels, and reminders",
+                t2_3: "server administration and configuration tools",
+                t2_4: "AI features operated locally through Chell AI",
+                t2_5: "optional integrations with third-party services for specific commands",
+                t3Title: "3. Authorized Use",
+                t3Desc: "You agree to use ChellOS in compliance with Discord rules and applicable law. The following are notably prohibited:",
+                t3_1: "using the bot to harass, threaten, discriminate against, or disrupt other users",
+                t3_2: "using commands to bypass server rules or harm a community",
+                t3_3: "attempting to divert, break, overload, or abuse the service, its APIs, or its protections",
+                t3_4: "using ChellOS to distribute illegal content, tokens, identifiers, secrets, or passwords",
+                t3_5: "unauthorized reproduction or reuse of the project code, logo, or visual identity",
+                t4Title: "4. Intervention, Sanctions, and Blacklist",
+                t4Desc: "Project maintainers may suspend, restrict, or block access to the service in cases of abuse, malicious use, breach of these terms, or threats to the security of the bot or protected communities.",
+                t4_1: "temporary limits may be applied to certain features",
+                t4_2: "a server or user may be blacklisted in case of serious or repeated abuse",
+                t4_3: "sanctions may rely on technical logs, automod events, or received reports",
+                t5Title: "5. Availability and Disclaimer of Warranty",
+                t5Desc: "ChellOS is provided without express or implied warranty. We do not guarantee continuous availability, the absence of errors, or the permanent maintenance of any specific feature. Interruptions may occur because of maintenance, technical incidents, project changes, or external dependencies.",
+                t6Title: "6. Limitation of Liability",
+                t6Desc: "To the extent permitted by law, the ChellOS project cannot be held liable for direct or indirect damages related to the use or unavailability of the service, including:",
+                t6_1: "loss of configuration, logs, history, or temporary content",
+                t6_2: "sanctions taken by server administrators using the bot",
+                t6_3: "consequences of incorrect bot configuration on a server",
+                t6_4: "behavior produced by experimental AI modules or integrated third-party services",
+                t7Title: "7. Personal Data and Compliance",
+                t7Desc: "Data processing related to ChellOS is described on the Privacy and GDPR pages. Use of the service implies that certain data strictly necessary for commands, moderation, and administration may be processed in accordance with those documents.",
+                t8Title: "8. Intellectual Property",
+                t8Desc: "The code, the ChellOS name, logo, visuals, and related branding elements remain protected. Unless expressly authorized, you may not reproduce, resell, republish, or present all or part of the project as your own.",
+                t9Title: "9. Changes to the Terms",
+                t9Desc: "These terms may be updated to reflect changes in the project, infrastructure, regulation, or Discord rules. The version published on the website is authoritative and applies as soon as it goes live.",
+                t10Title: "10. Contact",
+                t10Desc: "For any legal question or request related to these terms, contact the official support server or write to <strong>contact@chell.fr</strong>.",
+                termsFooter: "Terms v2026.04 — contact@chell.fr — Last updated: April 2026",
+
+                privacyBanner: "ChellOS is GDPR-compliant — Non-profit project hosted in France",
+                privacyTitle: "Privacy Protocol",
+                privacySubtitle: "By using <strong>ChellOS</strong>, you accept this protocol. ChellOS is a <strong>volunteer-driven</strong> project hosted in France and uses secure, GDPR-compliant AI systems (Chell AI). No data is sold or shared for commercial purposes.",
+                privacyNote: "Non-profit project, provided as-is, in accordance with French law and the GDPR.",
+                p1Title: "1. Moderation & Automod",
+                p1_sub1: "Collected data",
+                p1_w1: "Warnings",
+                p1_d1: "ID, moderator, reason, date",
+                p1_d2: "per-user counter (configurable auto-reset)",
+                p1_sub2: "AI automod",
+                p1_aiDesc: "Real-time analysis through <strong>Chell AI</strong>. Messages are analyzed in memory and are not permanently stored. This feature can be disabled with <code>/config-automod</code>.",
+                p1_aiNote: "ChellOS does not store message content.",
+                p1_ret: "Retention: 12 months maximum for sanctions. Deletion on request within 30 days.",
+                p2Title: "2. Artificial Intelligence — Chell AI",
+                p2_head: "AI Processing & Operational Standards",
+                p2_1: "<strong>Transient processing:</strong> Questions and prompts sent to Chell AI are processed in real-time through secure infrastructure and GDPR-compliant API sub-processors strictly to generate answers.",
+                p2_2: "<strong>No model training:</strong> User prompts are never sold, disclosed, or used to train public AI models.",
+                p2_3: "<strong>Context history:</strong> Up to 20 messages per server to maintain conversational context. Deletable anytime via <code>/clear-history</code>.",
+                p2_warnHead: "Legal Disclaimer:",
+                p2_warnDesc: "The AI is an experimental automated feature. Output is generated automatically and strictly for informational or entertainment purposes. It does not constitute legal, medical, or professional advice. ChellOS disclaims all liability for errors, omissions, or actions taken based on AI outputs.",
+                p2_ret: "Retention: 30 days maximum for context. Use <code>/clear-history</code> to purge it instantly.",
+                p3Title: "3. Community Features",
+                p3_lvl: "Levels",
+                p3_note: "Notes & Reminders",
+                p3_sug: "Suggestions",
+                p3_poll: "Polls",
+                p3_cnt: "Counting",
+                p3_inter: "Inter-server",
+                p3_d1: "ID, XP, level per server",
+                p3_d2: "content, author, dates",
+                p3_d3: "ID, content, status, dates",
+                p3_d4: "content, author, votes",
+                p3_d5: "question, answers, votes",
+                p3_d6: "participants, winners (7 days after the end)",
+                p3_d7: "memory only (lost on restart)",
+                p3_d8: "last user, record",
+                p3_d9: "relayed messages",
+                p3_ret: "Retention: 12 months maximum. Giveaways: 7 days. Snipe: volatile only.",
+                p4Title: "4. External Services",
+                p4Desc: "External integrations used strictly to perform specific requested commands:",
+                p4_1_k: "AI Sub-processors",
+                p4_1_v: "transient text generation (GDPR-compliant, no training retention)",
+                p4_2: "images (on demand)",
+                p4_3: "short links (on demand)",
+                p4_4: "weather",
+                p4_5: "voice transcription",
+                p4_6: "Twitch names",
+                p4_foot: "These services operate under their respective privacy policies. Firebase is used exclusively for aggregated statistics.",
+                p5Title: "5. Infrastructure",
+                p5_1: "Servers hosted in <strong>France / EU</strong> — access restricted to project administration",
+                p5_2: "<strong>MySQL</strong> database (InnoDB) with JSON fallback",
+                p5_3: "Encrypted connections (TLS/HTTPS) for external API exchanges",
+                p6Title: "6. Retention Periods",
+                r1_k: "Warnings, notes, sanctions",
+                r1_v: "12 months max",
+                r2_k: "AI history",
+                r2_v: "30 days max",
+                r3_v: "7 days after end",
+                r4_k: "Configurable auto-reset",
+                r4_v: "Configurable auto-reset",
+                r5_v: "Memory only (volatile)",
+                r6_k: "Server config",
+                r6_v: "Until the bot is removed",
+                r7_k: "XP, tickets, suggestions",
+                r7_v: "12 months max",
+                p6_foot: "Data is deleted automatically at expiration or upon request.",
+                p7Title: "7. Your Rights (GDPR)",
+                p7_1k: "Access",
+                p7_1v: "request a copy of your data",
+                p7_2k: "Rectification",
+                p7_2v: "correct inaccurate data",
+                p7_3k: "Deletion",
+                p7_3v: "request deletion of your data",
+                p7_4k: "Objection",
+                p7_4v: "by joining a server where Chell is present, you accept the related processing under Discord rules. To object, you must leave that server.",
+                p7_foot: "Contact us through Discord support or at <strong>contact@chell.fr</strong>. Response time: <strong>30 days</strong> maximum. Data export available on request.",
+                p8Title: "8. Discord Developer Policy",
+                p8_1: "No account modification without permission",
+                p8_2: "No unsolicited direct messages",
+                p8_3: "No password or token collection",
+                p8_4: "Data used only to provide features",
+                p8_5: "No sale of data and no profiling",
+                p8_6: "No Discord content scraping",
+                p8_7: "Compliance with Discord Community Guidelines",
+                p8_8: "No illegal content — NSFW only in NSFW channels",
+                p8_foot: "Report issues through Discord support or at <strong>contact@chell.fr</strong>.",
+                p9Title: "9. Sanctions & Blacklist",
+                p9_1k: "Data:",
+                p9_1v: "user ID, reason, date",
+                p9_2k: "Retention:",
+                p9_2v: "12 months maximum",
+                p9_3k: "Appeal:",
+                p9_3v: "Discord support or <strong>contact@chell.fr</strong>",
+                p10Title: "10. Terms of Use",
+                p10_1: "Free and volunteer-run, provided without warranty ("as-is")",
+                p10_2: "Use of the service means acceptance of this protocol",
+                p10_3: "Right to intervene in case of abuse",
+                p10_4: "Reproduction of the code or logo is prohibited",
+                p10_5: "No liability for service interruptions",
+                p10_6: "Automated AI disclaimer — user assumes full responsibility for interpreting and using AI-generated output",
+                privacyFooter: "Protocol v2026.07 — contact@chell.fr — Last updated: July 2026"
+            }
+        };
+
+        let currentLang = 'fr';
+
+        function switchDoc(doc) {
+            document.querySelectorAll('.legal-card').forEach(card => card.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if (doc === 'terms') {
+                document.getElementById('terms-card').classList.add('active');
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            } else {
+                document.getElementById('privacy-card').classList.add('active');
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Language toggle
+        const langToggle = document.getElementById('langToggle');
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            document.getElementById('langText').innerText = currentLang.toUpperCase();
+            updateTexts();
+        });
+
+        function updateTexts() {
+            const dict = translations[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.innerHTML = dict[key];
+                }
+            });
+        }
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fas fa-sun';
+            }
+        });
+    </script>
+</body>
+</html>
