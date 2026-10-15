@@ -193,4 +193,150 @@
       });
     });
   })();
+
+  /* ------------------- Avis Botillon (en direct, sans clé) -------------- */
+  (function reviews() {
+    var host = $('#reviews-list');
+    if (!host) return;
+    var lang = (document.documentElement.lang || 'fr').slice(0, 2);
+    var fmt = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR');
+    var BOT_ID = '1383154920231796736';
+    var API = 'https://botillon.fr/api/v1/bots/' + BOT_ID;
+
+    function setAll(key, value) {
+      $$('[data-review="' + key + '"]').forEach(function (el) { el.textContent = value; });
+    }
+    function stars(n, cls) {
+      var wrap = document.createElement('div');
+      wrap.className = cls || 'stars';
+      for (var i = 1; i <= 5; i++) {
+        var s = document.createElement('i');
+        s.textContent = '★';
+        if (i <= Math.round(n)) s.className = 'on';
+        wrap.appendChild(s);
+      }
+      return wrap;
+    }
+    function dateLabel(iso) {
+      if (!iso) return '';
+      try {
+        return new Date(iso).toLocaleDateString(lang === 'en' ? 'en-GB' : 'fr-FR', { year: 'numeric', month: 'short' });
+      } catch (e) { return ''; }
+    }
+    function ratingText(v) {
+      var s = Number(v).toFixed(1);
+      return lang === 'en' ? s : s.replace('.', ',');
+    }
+
+    function render(data) {
+      if (!data) return;
+      if (typeof data.rating === 'number') {
+        setAll('rating', ratingText(data.rating));
+        var target = $('[data-review="stars"]');
+        if (target) {
+          target.textContent = '';
+          for (var i = 1; i <= 5; i++) {
+            var s = document.createElement('i');
+            s.textContent = '★';
+            if (i <= Math.round(data.rating)) s.className = 'on';
+            target.appendChild(s);
+          }
+        }
+      }
+      if (typeof data.ratingCount === 'number') setAll('ratingCount', fmt.format(data.ratingCount));
+      if (typeof data.votes === 'number') setAll('votes', fmt.format(data.votes));
+      if (typeof data.likes === 'number') setAll('likes', fmt.format(data.likes));
+
+      if (!Array.isArray(data.reviews) || !data.reviews.length) return;
+      host.textContent = '';
+      data.reviews.forEach(function (r) {
+        var card = document.createElement('article');
+        card.className = 'tile plate cut-lg reveal in';
+        var inner = document.createElement('div');
+        inner.className = 'plate-inner cut-lg review';
+
+        var who = document.createElement('div');
+        who.className = 'who';
+        if (r.author && r.author.avatar) {
+          var img = document.createElement('img');
+          img.src = r.author.avatar;
+          img.alt = '';
+          img.loading = 'lazy';
+          img.width = 38;
+          img.height = 38;
+          who.appendChild(img);
+        }
+        var meta = document.createElement('div');
+        var name = document.createElement('div');
+        name.className = 'name';
+        name.textContent = (r.author && r.author.name) || 'Anonyme';
+        meta.appendChild(name);
+        meta.appendChild(stars(r.rating || 0, 'stars'));
+        who.appendChild(meta);
+        inner.appendChild(who);
+
+        var body = document.createElement('p');
+        body.textContent = r.content || '';
+        inner.appendChild(body);
+
+        var when = document.createElement('div');
+        when.className = 'rating-of';
+        when.style.fontSize = '0.75rem';
+        when.textContent = dateLabel(r.createdAt);
+        inner.appendChild(when);
+
+        card.appendChild(inner);
+        host.appendChild(card);
+      });
+
+      var note = $('[data-review="updated"]');
+      if (note) {
+        note.textContent = lang === 'en'
+          ? 'Source: Botillon, updated live.'
+          : 'Source : Botillon, mis à jour en direct.';
+      }
+    }
+
+    function fromProxy() {
+      return fetch('/api/reviews', { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    }
+
+    function get(url) {
+      return fetch(url, { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    }
+
+    function fromDirect() {
+      return Promise.all([get(API + '/stats'), get(API + '/community')]).then(function (res) {
+        var s = res[0], c = res[1];
+        if (!s && !c) return null;
+        var recent = (c && c.reviews && c.reviews.recent) || [];
+        return {
+          rating: s && s.ratingAverage,
+          ratingCount: s && s.ratingCount,
+          votes: s && s.votesTotal,
+          likes: s && s.likesTotal,
+          reviews: recent.slice(0, 6).map(function (r) {
+            return {
+              rating: r.rating,
+              content: r.content,
+              createdAt: r.createdAt,
+              author: { name: r.author && r.author.name, avatar: r.author && r.author.avatarUrl },
+            };
+          }),
+        };
+      });
+    }
+
+    fromProxy().then(function (data) {
+      if (data && (typeof data.rating === 'number' || (data.reviews && data.reviews.length))) {
+        render(data);
+        return;
+      }
+      return fromDirect().then(render);
+    });
+  })();
 })();

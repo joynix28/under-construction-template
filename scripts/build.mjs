@@ -104,6 +104,54 @@ if (existsSync(sitemap)) {
   writeFileSync(join(dist, 'sitemap.xml'), readFileSync(sitemap, 'utf8').replaceAll('__DATE__', today));
 }
 
+/* 6. Note moyenne et nombre d'avis, lus depuis l'API publique de Botillon.
+      Ils alimentent le `aggregateRating` du JSON-LD (données structurées), donc
+      ils sont figés à la compilation. La page affiche en plus la valeur en
+      direct (via /api/reviews). */
+async function botillonRating() {
+  try {
+    const res = await fetch(`https://botillon.fr/api/v1/bots/${APP_ID}/stats`, {
+      headers: { Accept: 'application/json', 'User-Agent': 'chell.fr build' },
+    });
+    if (!res.ok) return { rating: null, count: null };
+    const s = await res.json();
+    return {
+      rating: typeof s.ratingAverage === 'number' ? s.ratingAverage : null,
+      count: typeof s.ratingCount === 'number' ? s.ratingCount : null,
+    };
+  } catch {
+    return { rating: null, count: null };
+  }
+}
+
+function htmlFilesIn(dir) {
+  const out = [];
+  (function collect(d) {
+    for (const name of readdirSync(d)) {
+      const p = join(d, name);
+      if (statSync(p).isDirectory()) collect(p);
+      else if (name.endsWith('.html')) out.push(p);
+    }
+  })(dir);
+  return out;
+}
+
+const rating = await botillonRating();
+for (const file of htmlFilesIn(dist)) {
+  // `aggregateRating` doit rester un nombre au format JSON : point décimal,
+  // quelle que soit la langue. La valeur visible est mise en forme par app.js.
+  // Dans la source, les placeholders sont entre guillemets pour que le JSON-LD
+  // reste valide ; ici on les remplace par des nombres bruts (JSON numérique).
+  const value = rating.rating == null ? '4.9' : String(rating.rating);
+  const count = rating.count == null ? '12' : String(rating.count);
+  writeFileSync(
+    file,
+    readFileSync(file, 'utf8')
+      .replaceAll('"__RATING__"', value)
+      .replaceAll('"__RATING_COUNT__"', count)
+  );
+}
+
 /* 6. Cache-busting des assets.
       Les fichiers sous /assets/ sont servis immuables un an (voir _headers).
       On ajoute donc une empreinte du contenu en paramètre d'URL : dès qu'un

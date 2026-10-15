@@ -130,6 +130,7 @@
         "isAccessibleForFree": true,
         "award": "Verified and listed in the official Discord application directory",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "__RATING__", "reviewCount": "__RATING_COUNT__", "bestRating": "5", "worstRating": "1" },
         "author": { "@id": "https://chell.fr/#organization" },
         "publisher": { "@id": "https://chell.fr/#organization" },
         "screenshot": [
@@ -203,6 +204,7 @@
           <a href="#stats">Statistics</a>
           <a href="#team">Team</a>
           <a href="#vote">Vote</a>
+          <a href="#reviews">Reviews</a>
           <a href="#faq">FAQ</a>
         </div>
 
@@ -230,6 +232,7 @@
       <a href="#stats">Statistics <span aria-hidden="true">→</span></a>
       <a href="#team">Team <span aria-hidden="true">→</span></a>
       <a href="#vote">Vote <span aria-hidden="true">→</span></a>
+      <a href="#reviews">Reviews <span aria-hidden="true">→</span></a>
       <a href="#faq">FAQ <span aria-hidden="true">→</span></a>
       <div class="lang cut-sm" role="group" aria-label="Language" style="margin-top:.8rem">
         <a href="/" hreflang="fr" lang="fr">FR</a>
@@ -552,6 +555,35 @@
           </article>
         </div>
       </div>
+    </section>
+
+    <section class="section wrap" id="reviews">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Reviews</span>
+        <h2>What servers say</h2>
+        <p>Ratings and reviews verified on Botillon, updated live.</p>
+      </div>
+
+      <div class="plate plate-accent cut-xl reveal">
+        <div class="plate-inner cut-xl">
+          <div class="rating-inner cut-xl">
+            <div class="rating-score">
+              <div class="big"><span data-review="rating">4.9</span><small>/5</small></div>
+              <div class="stars" data-review="stars" aria-hidden="true"></div>
+              <div class="rating-of"><span data-review="ratingCount">12</span> verified reviews</div>
+            </div>
+            <div class="rating-metrics">
+              <div><b data-review="votes">251</b><span>votes</span></div>
+              <div><b data-review="likes">22</b><span>likes</span></div>
+              <div><b data-review="ratingCount">12</b><span>reviews</span></div>
+            </div>
+            <a class="btn btn-primary cut" href="https://botillon.fr/bots/chell" target="_blank" rel="noopener">Leave a review on Botillon</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews" id="reviews-list" aria-live="polite"></div>
+      <p class="reviews-note" data-review="updated"></p>
     </section>
 
     <section class="section wrap" id="stats">
