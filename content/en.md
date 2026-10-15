@@ -20,7 +20,6 @@ image: https://chell.fr/assets/og.png
 - **Certification**: verified by Discord, listed in the official application directory
 - **Commands**: 103 (94 slash commands + 9 context menus), 10 categories
 - **Community**: 147,000+ users, 2,000+ Discord servers (currently __GUILDS__)
-- **Hosting**: Cloudflare
 - **GDPR**: personal-data export (art. 15) via the `/mes-donnees` command
 - **Creator / owner**: joynix28
 

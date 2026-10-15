@@ -1,5 +1,8 @@
 # Chell — page d'accueil (chell.fr)
 
+[![Licence : Propriétaire / Source-Available](https://img.shields.io/badge/licence-propri%C3%A9taire%20%2F%20source--available-c0392b)](LICENSE)
+[![Site : chell.fr](https://img.shields.io/badge/site-chell.fr-e8590c)](https://chell.fr)
+
 Site vitrine officiel du bot Discord **Chell**, déployé sur **Cloudflare Pages**.
 Statique, sans dépendance, sans étape de compilation : le HTML, le CSS et le JS
 sont livrés tels quels.
@@ -64,7 +67,7 @@ Les polices sont **auto-hébergées** (aucune requête vers Google Fonts).
 │   │   ├── app.js          # thème, menu, mot-clé rotatif, stats live (FR/EN)
 │   │   ├── og.png          # image de partage 1200×630
 │   │   ├── logo-96.png, brand-mark.png, icon-512.png
-│   │   ├── brands/         # logos Discord, Botillon, Cloudflare, Top.gg
+│   │   ├── brands/         # logos Discord, Botillon, Top.gg
 │   │   └── shots/          # captures d'écran (normalisées 1200×750)
 │   ├── fonts/              # woff2 auto-hébergés
 │   ├── robots.txt
@@ -166,16 +169,24 @@ curl https://chell.fr/ -H "Accept: text/markdown"
 - **Utilisateurs cumulés, commandes, catégories** : valeurs figées, à mettre à
   jour dans `src/index.html` et `content/index.md` si les chiffres évoluent.
 
-## Licence & attribution
+## ⚠️ Licence & Conditions d'utilisation
 
-Ce site est publié sous la [licence Chell](LICENSE) : réutilisation libre **à
-condition de citer joynix28 / le projet Chell** et de conserver un lien vers
-[chell.fr](https://chell.fr). La marque, le nom « Chell » et le logo ne peuvent
-pas être réutilisés pour un autre projet.
+Ce projet n'est **pas open source**. Il est publié sous une licence propriétaire
+« à code source disponible » (Source-Available), version 1.0, © 2026 joynix28.
 
-Certaines parties du dépôt sont issues du gabarit MIT
-[under-construction-template](https://github.com/hendrikdemir/under-construction-template)
-(Hendrik Demir) ; sa notice est conservée dans le fichier `LICENSE`.
+- **Usage commercial interdit** sans autorisation écrite préalable (vente,
+  Premium, publicité, dons, vitrine commerciale).
+- **Projets concurrents interdits**, même gratuits : pas de réutilisation du
+  code, de l'architecture ou du design pour un autre bot ou service.
+- **Attribution visible obligatoire** pour toute utilisation ou version
+  modifiée : la mention « Propulsé par Chell — Créé originalement par joynix28 »,
+  avec un lien actif vers https://github.com/joynix28/under-construction-template,
+  dans le footer de toutes les pages publiques (ou la commande `/help` du bot).
+- **Pas de sous-licence** : interdiction de republier ce code sous MIT, GPL, etc.
+- Le texte complet fait foi : voir le fichier [`LICENSE`](LICENSE).
+
+Pour toute demande d'autorisation (usage commercial, projet similaire, retrait de
+l'obligation de crédit) : https://discord.gg/pKj8U2enwD
 
 ---
 

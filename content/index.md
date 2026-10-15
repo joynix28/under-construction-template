@@ -21,7 +21,6 @@ image: https://chell.fr/assets/og.png
 - **Certification** : vérifié par Discord, référencé dans l'annuaire des applications
 - **Commandes** : 103 (94 commandes slash + 9 menus contextuels), 10 catégories
 - **Communauté** : plus de 147 000 utilisateurs cumulés, plus de __GUILDS__ serveurs Discord
-- **Hébergement** : Cloudflare
 - **Conformité** : export des données personnelles (RGPD, art. 15) via `/mes-donnees`
 - **Créateur / propriétaire** : joynix28
 

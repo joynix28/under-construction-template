@@ -467,6 +467,7 @@ button {
   font-weight: 800;
   font-size: 1.28rem;
   letter-spacing: -0.03em;
+  flex: none;
 }
 .brand img {
   width: 34px;
@@ -519,6 +520,7 @@ button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: auto;
 }
 
 .icon-btn {
@@ -1129,6 +1131,9 @@ button {
 }
 .foot-bottom a { color: var(--muted); }
 .foot-bottom a:hover { color: var(--accent); }
+.foot-credit { color: var(--muted); }
+.foot-credit a { color: var(--accent); }
+.foot-credit b { color: var(--fg); }
 
 /* --------------------------- Rotating keyword --------------------------- */
 
@@ -1396,7 +1401,6 @@ html.js .reveal.in.d5 { animation-delay: 0.3s; }
 
 @media (max-width: 960px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .mock { order: -1; }
   .bento { grid-template-columns: repeat(2, 1fr); }
   .span-3, .span-2 { grid-column: span 1; }
   .team-grid { grid-template-columns: 1fr 1fr; }
@@ -1412,6 +1416,11 @@ html.js .reveal.in.d5 { animation-delay: 0.3s; }
   .nav-actions .btn-ghost.desktop { display: none; }
   .stat-strip { grid-template-columns: 1fr 1fr; }
 }
+/* Sous 640 px, la barre est trop chargée : le sélecteur de langue part dans le
+   menu déroulant, qui a la place de l'afficher proprement. */
+@media (max-width: 640px) {
+  .nav-actions .lang { display: none; }
+}
 @media (max-width: 560px) {
   .bento { grid-template-columns: 1fr; }
   .team-grid { grid-template-columns: 1fr; }
@@ -1419,8 +1428,12 @@ html.js .reveal.in.d5 { animation-delay: 0.3s; }
   .foot-grid { grid-template-columns: 1fr; }
   .actions { grid-template-columns: 1fr; }
   .vote-side { grid-template-columns: 1fr; }
+  /* Sur téléphone, les catégories passent à la ligne : plus simple au doigt
+     qu'un défilement horizontal sans barre visible. */
+  .cat-grid { flex-wrap: wrap; overflow-x: visible; padding-bottom: 0; }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .hero-cta .btn { width: 100%; }
   .cta .btn-row { flex-direction: column; }
   .cta .btn-row .btn { width: 100%; }
+  .vote-featured .btn-row .btn { flex: 1 1 100%; }
 }

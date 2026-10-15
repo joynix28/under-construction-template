@@ -31,7 +31,6 @@ export async function onRequestGet() {
 - **Certification** : vérifié par Discord, référencé dans l'annuaire des applications
 - **Commandes** : 103 (94 slash + 9 menus contextuels), 10 catégories
 - **Communauté** : plus de 147 000 utilisateurs cumulés, plus de ${guilds} serveurs Discord (en direct)
-- **Hébergement** : Cloudflare
 - **RGPD** : export des données personnelles (art. 15) via /mes-donnees
 - **Créateur / propriétaire** : joynix28
 

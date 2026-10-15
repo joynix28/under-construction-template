@@ -1,67 +1,172 @@
-Licence Chell — Page d'accueil (chell.fr)
-==========================================
+LICENCE PUBLIQUE À CODE SOURCE DISPONIBLE - Chell (Version 1.0)
+Copyright (c) 2026 joynix28. Tous droits réservés.
 
-Copyright (c) 2026 joynix28 et l'équipe Chell — https://chell.fr
+IMPORTANT : CE LOGICIEL N'EST PAS "OPEN SOURCE" AU SENS DE L'OSI. SON CODE EST
+RENDU PUBLIC UNIQUEMENT SOUS LES CONDITIONS STRICTES CI-DESSOUS. EN UTILISANT,
+COPIANT, MODIFIANT OU HÉBERGEANT CE LOGICIEL, VOUS ACCEPTEZ D'ÊTRE LIÉ PAR LES
+TERMES DE CETTE LICENCE.
 
-Réutilisation autorisée, à une condition : citer la source.
-------------------------------------------------------------
+1. DÉFINITIONS
+- "Logiciel" désigne l'intégralité du code source, du design, des interfaces, de
+  la documentation et des fichiers associés à Chell.
+- "Auteur" désigne joynix28, titulaire exclusif des droits patrimoniaux et
+  moraux.
+- "Déploiement Public" désigne le fait de rendre le Logiciel (original ou
+  modifié) accessible à des tiers via un réseau (notamment sous forme de site
+  web, d'API, d'application ou de bot Discord).
+- "Usage Commercial" désigne toute utilisation visant, directement ou
+  indirectement, un avantage financier, monétaire ou promotionnel (vente,
+  abonnements Premium, publicités, parrainages, dons type Patreon/Ko-fi, ou
+  vitrine commerciale).
 
-Le code source (HTML, CSS, JavaScript) de ce site peut être consulté, copié,
-modifié et réutilisé librement — y compris à des fins personnelles ou
-commerciales — **à condition de créditer l'auteur** et de conserver cette
-notice :
+2. DROITS ACCORDÉS (SOUS CONDITIONS)
+Sous réserve du respect strict des articles 3 et 4, l'Auteur accorde une licence
+non-exclusive, mondiale et gratuite pour :
+a) Consulter et étudier le code source.
+b) Utiliser et modifier le Logiciel à des fins strictement personnelles,
+   éducatives ou non-lucratives.
+c) Effectuer un Déploiement Public du Logiciel (original ou modifié) uniquement
+   pour un projet personnel non-commercial et non-concurrent.
 
-  • un crédit clair et visible du type
-      « Basé sur le site du bot Chell — https://chell.fr »
-    avec un lien cliquable vers https://chell.fr ;
-  • la présente notice (le fichier LICENSE) conservée dans toute copie ou
-    partie substantielle du projet.
+3. OBLIGATION D'ATTRIBUTION VISIBLE (CRÉDITS OBLIGATOIRES)
+Toute utilisation, redistribution ou Déploiement Public du Logiciel (en tout ou
+partie, modifié ou non) impose une mention explicite, publique et visible par les
+utilisateurs finaux :
+a) Sur un site ou une application web : une mention claire "Propulsé par Chell —
+   Créé originalement par joynix28" avec un lien hypertexte actif pointant vers
+   https://github.com/joynix28/under-construction-template doit figurer de manière
+   lisible dans le pied de page (footer) de toutes les pages publiques ET sur la
+   page des crédits si elle existe.
+b) Sur un bot Discord ou service tiers : la même mention et le lien doivent
+   apparaître visiblement dans la commande d'information principale (ex: /help,
+   /info, /about) ainsi que dans la biographie publique si applicable.
+c) En cas de modification : vous devez obligatoirement ajouter la mention
+   "Version modifiée à partir du projet original de joynix28".
+d) Toute suppression, dissimulation ou altération de ces crédits visibles
+   entraîne la révocation immédiate de la licence.
 
-Si vous réutilisez ce travail, merci de le citer. C'est la seule obligation.
+4. RESTRICTIONS STRICTES (INTERDICTIONS)
+Sauf autorisation écrite préalable de l'Auteur, il est formellement interdit de :
+a) USAGE COMMERCIAL : exploiter le Logiciel ou une version modifiée pour tout
+   Usage Commercial.
+b) CONCURRENCE : utiliser tout ou partie du Logiciel (code, architecture ou
+   design) pour créer, alimenter ou améliorer un produit, site web, bot ou
+   service qui entre en concurrence directe ou indirecte avec Chell ou les
+   services officiels de l'Auteur, même gratuitement.
+c) REBRANDING ET APPROPRIATION : présenter le Logiciel ou une version modifiée
+   comme étant votre création originale, ou distribuer le code sous un autre nom
+   sans mentionner l'origine.
+d) SOUS-LICENCE : accorder des droits sur ce Logiciel à des tiers sous une autre
+   licence (interdiction de passer le code sous licence MIT, GPL, etc.).
 
-Marque, nom et logo
--------------------
+5. PROPRIÉTÉ DES CONTRIBUTIONS
+En soumettant une contribution (Pull Request, correctif) sur le dépôt officiel,
+vous cédez à l'Auteur, à titre gratuit, irrévocable et mondial, l'ensemble des
+droits patrimoniaux permettant d'utiliser, modifier et exploiter commercialement
+cette contribution.
 
-Le nom « Chell », le logo et l'identité visuelle associée restent la propriété
-de leurs auteurs. Ils ne peuvent pas être réutilisés pour un autre bot, un autre
-produit ou un autre site sans autorisation écrite. Citer l'auteur ne donne
-aucun droit sur la marque.
+6. RÉSILIATION AUTOMATIQUE
+Le non-respect d'une seule clause entraîne la résiliation immédiate et
+automatique de vos droits, sans mise en demeure préalable. Dès la résiliation,
+vous devez cesser tout Déploiement Public et détruire toutes les copies du
+Logiciel en votre possession, sous peine de poursuites pour contrefaçon
+(Articles L.335-2 et suivants du Code de la propriété intellectuelle).
 
-Aucune garantie
----------------
+7. ABSENCE DE GARANTIE ET RESPONSABILITÉ
+LE LOGICIEL EST FOURNI "TEL QUEL", SANS AUCUNE GARANTIE. L'AUTEUR NE POURRA EN
+AUCUN CAS ÊTRE TENU RESPONSABLE DES DOMMAGES DIRECTS OU INDIRECTS LIÉS À
+L'UTILISATION DU LOGICIEL.
 
-Ce site est fourni « en l'état », sans garantie d'aucune sorte. Les auteurs ne
-sauraient être tenus responsables d'un dommage lié à son utilisation.
+8. DROIT APPLICABLE ET JURIDICTION
+La présente licence est régie par le droit français. Tout litige relèvera de la
+compétence exclusive des tribunaux français.
 
-Ce site n'est pas affilié à Discord Inc. « Discord » est une marque de
-Discord Inc.
+Pour toute demande d'autorisation (usage commercial, projet similaire ou retrait
+de l'obligation de crédit) : https://discord.gg/pKj8U2enwD
 
---------------------------------------------------------------------------
 
-Notice du gabarit d'origine (MIT)
----------------------------------
+================================================================================
+ENGLISH TRANSLATION (for reference only; the French text above prevails)
+================================================================================
 
-Certaines parties de ce dépôt dérivent de « under-construction-template », publié
-sous licence MIT. Sa notice est conservée ci-dessous, conformément à ses termes :
+SOURCE-AVAILABLE PUBLIC LICENSE - Chell (Version 1.0)
+Copyright (c) 2026 joynix28. All rights reserved.
 
-  MIT License
+IMPORTANT: THIS SOFTWARE IS NOT "OPEN SOURCE" IN THE OSI SENSE. ITS SOURCE IS
+MADE PUBLIC ONLY UNDER THE STRICT CONDITIONS BELOW. BY USING, COPYING, MODIFYING
+OR HOSTING THIS SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE.
 
-  Copyright (c) 2024 Hendrik Demir
+1. DEFINITIONS
+- "Software" means the entirety of the source code, design, interfaces,
+  documentation and associated files of Chell.
+- "Author" means joynix28, sole holder of the economic and moral rights.
+- "Public Deployment" means making the Software (original or modified) accessible
+  to third parties over a network (including as a website, API, application or
+  Discord bot).
+- "Commercial Use" means any use pursuing, directly or indirectly, a financial,
+  monetary or promotional benefit (sales, Premium subscriptions, advertising,
+  sponsorships, donations such as Patreon/Ko-fi, or a commercial showcase).
 
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
+2. RIGHTS GRANTED (CONDITIONALLY)
+Subject to strict compliance with Sections 3 and 4, the Author grants a
+non-exclusive, worldwide, royalty-free licence to:
+a) Read and study the source code.
+b) Use and modify the Software for strictly personal, educational or
+   non-commercial purposes.
+c) Make a Public Deployment of the Software (original or modified) only for a
+   personal, non-commercial and non-competing project.
 
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
+3. VISIBLE ATTRIBUTION REQUIREMENT (MANDATORY CREDITS)
+Any use, redistribution or Public Deployment of the Software (in whole or in
+part, modified or not) requires an explicit mention, public and visible to end
+users:
+a) On a website or web application: a clear mention "Powered by Chell —
+   Originally created by joynix28" with an active hyperlink pointing to
+   https://github.com/joynix28/under-construction-template must appear legibly in
+   the footer of all public pages AND on the credits page if one exists.
+b) On a Discord bot or third-party service: the same mention and link must appear
+   visibly in the main information command (e.g. /help, /info, /about) and in the
+   public biography where applicable.
+c) In case of modification: you must add the mention "Modified version based on
+   the original project by joynix28".
+d) Any removal, concealment or alteration of these visible credits results in the
+   immediate revocation of the licence.
 
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  SOFTWARE.
+4. STRICT RESTRICTIONS (PROHIBITIONS)
+Unless the Author gives prior written authorisation, it is strictly forbidden to:
+a) COMMERCIAL USE: exploit the Software or a modified version for any Commercial
+   Use.
+b) COMPETITION: use all or part of the Software (code, architecture or design) to
+   create, feed or improve a product, website, bot or service that competes
+   directly or indirectly with Chell or the Author's official services, even for
+   free.
+c) REBRANDING AND APPROPRIATION: present the Software or a modified version as
+   your own original creation, or distribute the code under another name without
+   mentioning its origin.
+d) SUBLICENSING: grant rights over this Software to third parties under another
+   licence (no relicensing the code under MIT, GPL, etc.).
+
+5. OWNERSHIP OF CONTRIBUTIONS
+By submitting a contribution (Pull Request, patch) to the official repository,
+you assign to the Author, free of charge, irrevocably and worldwide, all economic
+rights allowing the Author to use, modify and commercially exploit that
+contribution.
+
+6. AUTOMATIC TERMINATION
+Failure to comply with a single clause results in the immediate and automatic
+termination of your rights, without prior notice. Upon termination, you must stop
+any Public Deployment and destroy all copies of the Software in your possession,
+failing which you may be prosecuted for infringement (Articles L.335-2 et seq. of
+the French Intellectual Property Code).
+
+7. NO WARRANTY AND LIABILITY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT ANY WARRANTY. THE AUTHOR SHALL IN NO
+CASE BE LIABLE FOR DIRECT OR INDIRECT DAMAGES ARISING FROM THE USE OF THE
+SOFTWARE.
+
+8. GOVERNING LAW AND JURISDICTION
+This licence is governed by French law. Any dispute shall fall under the exclusive
+jurisdiction of the French courts.
+
+For any authorisation request (commercial use, similar project, or removal of the
+credit requirement): https://discord.gg/pKj8U2enwD
