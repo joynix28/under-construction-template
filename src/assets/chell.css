@@ -1228,57 +1228,128 @@ button {
 .cmd-frame > p { color: var(--muted); margin-top: 0.8rem; max-width: 40rem; }
 .cat-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-wrap: nowrap;
+  gap: 0.45rem;
   margin-top: 1.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.6rem;
+  scrollbar-width: thin;
 }
+.cat-grid::-webkit-scrollbar { height: 6px; }
+.cat-grid::-webkit-scrollbar-thumb { background: var(--line-strong); }
 .cat-grid span {
+  flex: none;
   font-family: 'Manrope', sans-serif;
   font-weight: 600;
-  font-size: 0.83rem;
+  font-size: 0.78rem;
   color: var(--fg);
   border: 1px solid var(--line-strong);
   background: var(--surface-sunken);
-  padding: 0.42rem 0.8rem;
+  padding: 0.36rem 0.68rem;
   --cut: 6px;
+  white-space: nowrap;
 }
 .cat-grid span b { color: var(--accent); margin-left: 0.25rem; }
 
 /* -------------------------------- Votes --------------------------------- */
 
-.vote-grid {
+.vote-layout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.35fr 1fr;
   gap: 1rem;
+  align-items: start;
 }
+.vote-side { display: grid; gap: 1rem; }
+
 .vote-card { padding: 1.5rem; display: flex; flex-direction: column; }
 .vote-card .vt { display: flex; align-items: center; gap: 0.7rem; }
 .vote-card .vt .vi {
-  width: 40px; height: 40px; --cut: 8px;
+  width: 42px; height: 42px; --cut: 8px;
   display: grid; place-items: center;
-  background: var(--accent-soft); color: var(--accent-soft-fg);
+  background: var(--surface-sunken);
+  flex: none;
 }
-.vote-card .vt svg { width: 20px; height: 20px; }
+.vote-card .vt .vi img,
+.vote-card .vt .vi svg { width: 24px; height: 24px; }
 .vote-card h3 { font-size: 1.05rem; }
 .vote-card p { color: var(--muted); font-size: 0.87rem; margin-top: 0.6rem; flex: 1; }
 .vote-card .btn { margin-top: 1.1rem; justify-content: center; }
+
+/* Botillon est mis en avant : carte large avec l'aperçu généré par leur site. */
+.vote-featured { overflow: hidden; }
+.vote-featured .shot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
+  display: block;
+}
+.vote-featured .inner { padding: 1.5rem; display: flex; flex-direction: column; }
+.vote-featured .vt { display: flex; align-items: center; gap: 0.7rem; }
+.vote-featured .vt .vi {
+  width: 44px; height: 44px; --cut: 8px;
+  display: grid; place-items: center;
+  background: var(--surface-sunken); flex: none;
+}
+.vote-featured .vt .vi img { width: 26px; height: 26px; }
+.vote-featured .btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.2rem; }
+.vote-featured .btn-row .btn { margin-top: 0; flex: 1; }
 
 /* ------------------------------ Trust bar ------------------------------- */
 
 .trust {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem 1.4rem;
+  gap: 0.55rem;
   align-items: center;
   justify-content: center;
-  margin-top: 1.4rem;
-  color: var(--muted);
+  margin-top: 1.6rem;
+}
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: 'Manrope', sans-serif;
   font-weight: 600;
-  font-size: 0.83rem;
+  font-size: 0.81rem;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.5rem 0.85rem;
+  --cut: 7px;
 }
-.trust span { display: inline-flex; align-items: center; gap: 0.45rem; }
-.trust svg { width: 15px; height: 15px; color: var(--positive); }
+.trust-item img,
+.trust-item svg { width: 17px; height: 17px; flex: none; }
+.trust-item .ok { color: var(--positive); }
+
+/* Logos qui s'adaptent au thème (Botillon fournit une variante sombre). */
+.logo-on-dark { display: none; }
+.dark .logo-on-dark { display: block; }
+.dark .logo-on-light { display: none; }
+
+/* --------------------------- Langue FR / EN ----------------------------- */
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  --cut: 7px;
+  padding: 0.15rem;
+  gap: 0.1rem;
+}
+.lang a {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  padding: 0.28rem 0.5rem;
+  --cut: 4px;
+  transition: color 0.15s var(--ease);
+}
+.lang a:hover { color: var(--fg); }
+.lang a.active { background: var(--accent); color: var(--accent-fg); }
 
 /* ----------------------------- Directory tags --------------------------- */
 
@@ -1304,9 +1375,10 @@ button {
   to { opacity: 1; transform: none; }
 }
 .reveal { }
-/* Le contenu n'est masqué QUE si le JS est actif : sans JS (ou pour un crawler
-   qui n'exécute pas les scripts), tout reste lisible et indexable. */
-html.js .reveal { opacity: 0; }
+/* Le contenu n'est masqué QUE si le JS est actif ET que l'élément est hors de
+   l'écran (classe `.pre` posée par app.js). Sans JS, rien n'est jamais masqué :
+   aucun risque de page à trous. */
+html.js .reveal.pre { opacity: 0; }
 html.js .reveal.in { animation: rise 0.6s var(--ease) both; }
 html.js .reveal.in.d1 { animation-delay: 0.06s; }
 html.js .reveal.in.d2 { animation-delay: 0.12s; }
@@ -1331,7 +1403,8 @@ html.js .reveal.in.d5 { animation-delay: 0.3s; }
   .cmd-grid { grid-template-columns: 1fr 1fr; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
   .actions { grid-template-columns: 1fr 1fr; }
-  .vote-grid { grid-template-columns: 1fr; }
+  .vote-layout { grid-template-columns: 1fr; }
+  .vote-side { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
   .nav-links { display: none; }
@@ -1345,6 +1418,7 @@ html.js .reveal.in.d5 { animation-delay: 0.3s; }
   .cmd-grid { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
   .actions { grid-template-columns: 1fr; }
+  .vote-side { grid-template-columns: 1fr; }
   .hero-cta { flex-direction: column; align-items: stretch; }
   .hero-cta .btn { width: 100%; }
   .cta .btn-row { flex-direction: column; }

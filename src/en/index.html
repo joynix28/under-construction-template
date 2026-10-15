@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Chell — Free unlimited Discord bot | AI moderation, levels, tickets</title>
+  <meta name="description" content="Chell is a free, unlimited Discord bot built in France: AI moderation, anti-raid, levels & XP, tickets, giveaways, economy, music and a web dashboard. 103 commands, no subscription. Add it in one click.">
+  <meta name="keywords" content="discord bot, chell, free discord bot, all-in-one discord bot, ai moderation bot, automod discord, anti-raid bot, discord levels xp bot, discord tickets bot, discord music bot, discord dashboard, unlimited discord bot, chell bot">
+  <meta name="author" content="joynix28">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#f5f4f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0d12" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+
+  <link rel="canonical" href="https://chell.fr/en/">
+  <link rel="alternate" hreflang="fr" href="https://chell.fr/">
+  <link rel="alternate" hreflang="en" href="https://chell.fr/en/">
+  <link rel="alternate" hreflang="x-default" href="https://chell.fr/">
+  <link rel="alternate" type="text/markdown" href="https://chell.fr/en/index.md" title="Markdown version (agents)">
+
+  <meta name="geo.region" content="FR">
+  <meta name="geo.placename" content="France">
+  <meta name="ICBM" content="46.2276, 2.2137">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Chell">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale:alternate" content="fr_FR">
+  <meta property="og:url" content="https://chell.fr/en/">
+  <meta property="og:title" content="Chell — Free unlimited Discord bot">
+  <meta property="og:description" content="AI moderation, anti-raid, levels & XP, tickets, giveaways, economy, music and a web dashboard. 103 commands, 100% free, no subscription.">
+  <meta property="og:image" content="https://chell.fr/assets/og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Chell, the all-in-one Discord bot — free, verified and unlimited">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chell — Free unlimited Discord bot">
+  <meta name="twitter:description" content="AI moderation, anti-raid, levels & XP, tickets, giveaways, music. 2,000+ servers. Free, no subscription.">
+  <meta name="twitter:image" content="https://chell.fr/assets/og.png">
+  <meta name="twitter:image:alt" content="Chell, the all-in-one Discord bot">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-64.png" sizes="64x64" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preconnect" href="https://cdn.discordapp.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.discordapp.com">
+  <link rel="preload" href="/fonts/inter-latin-300-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/outfit-latin-300-900.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="/assets/chell.css">
+
+  <script>
+    (function () {
+      document.documentElement.classList.add('js');
+      var lang = document.documentElement.lang || 'en';
+      document.documentElement.classList.add('lang-' + lang);
+      try {
+        var stored = localStorage.getItem('chell-theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://chell.fr/#organization",
+        "name": "Chell",
+        "alternateName": ["Chell Bot", "Chell Discord Bot"],
+        "url": "https://chell.fr/",
+        "logo": { "@type": "ImageObject", "url": "https://chell.fr/assets/brand-mark.png", "width": 435, "height": 435 },
+        "description": "Chell is a free, unlimited Discord bot built in France: AI moderation, anti-raid, levels and XP, tickets, giveaways, economy, music and a web dashboard.",
+        "foundingDate": "2025",
+        "founders": [
+          { "@type": "Person", "name": "joynix28", "jobTitle": "Founder & owner", "url": "https://github.com/joynix28", "image": "https://cdn.discordapp.com/avatars/1365989943012229221/a_728b76d40518dc912f4277e181b266db.gif?size=256" },
+          { "@type": "Person", "name": "thomas0535", "jobTitle": "Developer & co-founder", "image": "https://cdn.discordapp.com/avatars/1144911287134978128/b0096ceb35d5e2910f5c580cf889170f.png?size=256" },
+          { "@type": "Person", "name": "feulio", "jobTitle": "Co-founder & administrator", "image": "https://cdn.discordapp.com/avatars/1157346587845083218/1d947db88e27ab63888d216bef182265.png?size=256" }
+        ],
+        "contactPoint": { "@type": "ContactPoint", "contactType": "customer support", "url": "https://discord.gg/pKj8U2enwD", "availableLanguage": ["French", "English"] },
+        "sameAs": [
+          "https://botillon.fr/bots/chell",
+          "https://dash.chell.fr",
+          "https://discord.gg/pKj8U2enwD",
+          "https://github.com/joynix28"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://chell.fr/#website",
+        "url": "https://chell.fr/en/",
+        "name": "Chell",
+        "alternateName": "Chell, the all-in-one Discord bot",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://chell.fr/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://chell.fr/en/#webpage",
+        "url": "https://chell.fr/en/",
+        "name": "Chell — Free unlimited Discord bot",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://chell.fr/#website" },
+        "about": { "@id": "https://chell.fr/#app" },
+        "primaryImageOfPage": "https://chell.fr/assets/og.png",
+        "dateModified": "2026-10-15"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://chell.fr/#app",
+        "name": "Chell",
+        "alternateName": "Chell Discord Bot",
+        "applicationCategory": "UtilitiesApplication",
+        "applicationSubCategory": "Discord Bot",
+        "operatingSystem": "Discord (web, Windows, macOS, Linux, iOS, Android)",
+        "url": "https://chell.fr/en/",
+        "downloadUrl": "https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands",
+        "installUrl": "https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands",
+        "softwareVersion": "1.4.0",
+        "softwareHelp": "https://dash.chell.fr/commandes",
+        "inLanguage": "en",
+        "isAccessibleForFree": true,
+        "award": "Verified and listed in the official Discord application directory",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+        "author": { "@id": "https://chell.fr/#organization" },
+        "publisher": { "@id": "https://chell.fr/#organization" },
+        "screenshot": [
+          "https://chell.fr/assets/shots/shot-1.png",
+          "https://chell.fr/assets/shots/shot-2.png",
+          "https://chell.fr/assets/shots/shot-3.png",
+          "https://chell.fr/assets/shots/shot-4.png",
+          "https://chell.fr/assets/shots/shot-5.png"
+        ],
+        "featureList": [
+          "AI moderation (AutoMod)",
+          "Anti-raid and anti-bot protection",
+          "Anti-ghostping and anti-spam",
+          "Levels and XP (leveling system)",
+          "Economy, currency and shop",
+          "Tickets and recruitment",
+          "Auto-roles and role menus",
+          "Giveaways, polls and confessions",
+          "Server logs and statistics",
+          "Unlimited conversational AI (text, images, audio, search)",
+          "Built-in games (chess, checkers, connect four)",
+          "Music and radio in voice channels",
+          "Web configuration dashboard"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://chell.fr/en/" },
+          { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://chell.fr/en/#features" },
+          { "@type": "ListItem", "position": 3, "name": "Commands", "item": "https://dash.chell.fr/commandes" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is Chell really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Chell is 100% free and unlimited, including its AI module. There is no credit to buy, no subscription and no feature locked behind a paid tier." } },
+      { "@type": "Question", "name": "How do I add Chell to my Discord server?", "acceptedAnswer": { "@type": "Answer", "text": "Click “Add to Discord”, pick your server, then authorise the requested permissions. Installation takes under a minute and everything is configured afterwards from the web dashboard at dash.chell.fr." } },
+      { "@type": "Question", "name": "What features does Chell offer?", "acceptedAnswer": { "@type": "Answer", "text": "Chell bundles AI moderation (AutoMod), anti-raid, anti-ghostping, levels and XP, economy and shop, tickets and recruitment, auto-roles and menus, giveaways, polls and confessions, logs, statistics, games, music and radio — all configurable from a web dashboard." } },
+      { "@type": "Question", "name": "How many commands does Chell have?", "acceptedAnswer": { "@type": "Answer", "text": "Chell ships 103 commands — 94 slash commands and 9 context menus — across 10 categories: configuration, moderation, administration, utilities, tools, community, economy and levels, entertainment, information and context menus. The full list is at https://dash.chell.fr/commandes." } },
+      { "@type": "Question", "name": "Is Chell verified by Discord?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Chell is certified and listed in the official Discord application directory. It is also hand-verified on Botillon, the French bot list." } },
+      { "@type": "Question", "name": "Who created Chell?", "acceptedAnswer": { "@type": "Answer", "text": "Chell was created by joynix28 (founder and owner), with thomas0535 as developer and co-founder and feulio as co-founder and administrator." } },
+      { "@type": "Question", "name": "Is the bot in French or English?", "acceptedAnswer": { "@type": "Answer", "text": "Chell is a French-speaking bot: its commands and messages are in French, which makes it a great fit for French-speaking communities. This English page presents it for international discovery." } },
+      { "@type": "Question", "name": "How many servers is Chell on?", "acceptedAnswer": { "@type": "Answer", "text": "Chell is installed on more than 2,000 Discord servers with over 147,000 users. The server count is updated live on this page from the official Discord directory." } },
+      { "@type": "Question", "name": "Can I configure Chell without typing commands?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Everything is configured from the web dashboard at dash.chell.fr: welcomes, moderation, tickets, levels, logs and more, without writing a single command." } }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a href="#main" class="sr-only">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="/en/" aria-label="Chell, home">
+          <img src="/assets/logo-96.png" alt="" width="34" height="34">
+          Chell <span class="tag cut-xs">BOT</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#commands">Commands</a>
+          <a href="#stats">Statistics</a>
+          <a href="#team">Team</a>
+          <a href="#vote">Vote</a>
+          <a href="#faq">FAQ</a>
+        </div>
+
+        <div class="nav-actions">
+          <div class="lang cut-sm" role="group" aria-label="Language">
+            <a href="/" hreflang="fr" lang="fr">FR</a>
+            <a href="/en/" class="active" aria-current="page">EN</a>
+          </div>
+          <button class="icon-btn cut-sm" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          </button>
+          <a class="btn btn-ghost btn-sm cut desktop" href="https://dash.chell.fr">Dashboard</a>
+          <a class="btn btn-primary btn-sm cut" href="https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands" target="_blank" rel="noopener">Add</a>
+          <button class="icon-btn cut-sm nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="#features">Features <span aria-hidden="true">→</span></a>
+      <a href="#commands">Commands <span aria-hidden="true">→</span></a>
+      <a href="#stats">Statistics <span aria-hidden="true">→</span></a>
+      <a href="#team">Team <span aria-hidden="true">→</span></a>
+      <a href="#vote">Vote <span aria-hidden="true">→</span></a>
+      <a href="#faq">FAQ <span aria-hidden="true">→</span></a>
+      <div class="lang cut-sm" role="group" aria-label="Language" style="margin-top:.8rem">
+        <a href="/" hreflang="fr" lang="fr">FR</a>
+        <a href="/en/" class="active" aria-current="page">EN</a>
+      </div>
+      <a class="btn btn-primary cut" href="https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands" target="_blank" rel="noopener">Add Chell to Discord</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="pill cut-sm"><span class="dot"></span> Verified on Discord &nbsp;·&nbsp; <b>100% free</b> &nbsp;·&nbsp; Unlimited</span>
+
+          <h1>
+            The all-in-one <span class="nowrap grad">Discord bot</span>
+            <span class="line2">for your community</span>
+          </h1>
+
+          <div class="rotator" aria-hidden="true">
+            <span class="arrow">→</span>&nbsp;One bot for <span class="rot" id="hero-rot">AI moderation</span>
+          </div>
+
+          <p class="lede">
+            AI moderation, anti-raid, levels &amp; XP, tickets, giveaways, economy, music
+            and radio: Chell bundles it all into a single French-built bot. Free,
+            unlimited, configurable from a web dashboard.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg cut" href="https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.2A17 17 0 0 0 15.4 4l-.2.4a12 12 0 0 1 3.4 1.7 15 15 0 0 0-12.9 0A12 12 0 0 1 9 4.4L8.6 4a17 17 0 0 0-4.2 1.2C1.6 9.3.9 13.3 1.2 17.2A17 17 0 0 0 6.4 20l.9-1.5a11 11 0 0 1-1.5-.7l.4-.3a12 12 0 0 0 10.4 0l.4.3c-.5.3-1 .5-1.5.7L16 20a17 17 0 0 0 5.2-2.8c.4-4.5-.7-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>
+              Add Chell to Discord
+            </a>
+            <a class="btn btn-ghost btn-lg cut" href="https://dash.chell.fr">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+              Open the dashboard
+            </a>
+          </div>
+
+          <div class="hero-trust">
+            <div class="stack" aria-hidden="true">
+              <img src="https://cdn.discordapp.com/avatars/1365989943012229221/a_728b76d40518dc912f4277e181b266db.gif?size=64" alt="" width="38" height="38" loading="lazy">
+              <img src="https://cdn.discordapp.com/avatars/1144911287134978128/b0096ceb35d5e2910f5c580cf889170f.png?size=64" alt="" width="38" height="38" loading="lazy">
+              <img src="https://cdn.discordapp.com/avatars/1157346587845083218/1d947db88e27ab63888d216bef182265.png?size=64" alt="" width="38" height="38" loading="lazy">
+            </div>
+            <p class="txt">Built by <b>joynix28</b>, <b>thomas0535</b> &amp; <b>feulio</b><br>
+              <span data-stat-inline="guilds">2,000+ servers</span> · <span data-stat-inline="users">147,000+ users</span></p>
+          </div>
+        </div>
+
+        <div class="mock">
+          <img class="banner" src="https://cdn.discordapp.com/banners/1383154920231796736/a_d4ad4afcb0f619931c31d752445e0e62.gif?size=512" alt="" loading="lazy" aria-hidden="true">
+          <div class="plate plate-raised">
+            <div class="plate-inner cut-lg">
+              <div class="chat cut-lg">
+                <div class="chat-head">
+                  <span class="hash">#</span> general
+                  <span class="badge cut-xs"><i></i> Chell online</span>
+                </div>
+
+                <div class="msg">
+                  <img class="av" src="https://cdn.discordapp.com/avatars/1365989943012229221/a_728b76d40518dc912f4277e181b266db.gif?size=64" alt="" width="40" height="40" loading="lazy">
+                  <div>
+                    <div class="meta"><span class="name">joynix28</span><time>today at 2:32 PM</time></div>
+                    <div class="body"><code>/invoquer-ia</code> Describe Chell in one sentence</div>
+                  </div>
+                </div>
+
+                <div class="msg">
+                  <img class="av" src="https://cdn.discordapp.com/avatars/1383154920231796736/b60393baaa7afdb56f984255825aded0.png?size=64" alt="Chell" width="40" height="40" loading="lazy">
+                  <div>
+                    <div class="meta"><span class="name">Chell</span><span class="bot-tag cut-xs">BOT</span><time>today at 2:32 PM</time></div>
+                    <div class="body">The all-in-one bot: moderation, unlimited AI, levels, tickets and fun — free, with no limits.</div>
+                    <div class="embed cut-sm">
+                      <div class="t">Chell · 100% free</div>
+                      <ul>
+                        <li><b>Protection</b> — anti-raid, anti-ghostping, AutoMod AI</li>
+                        <li><b>Unlimited AI</b> — text, images, audio, search</li>
+                        <li><b>Management</b> — levels, tickets, auto-roles, menus</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="plate cut-lg action-link primary reveal" href="https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands" target="_blank" rel="noopener">
+          <span class="plate-inner cut-lg action">
+            <span class="ai cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 5.2A17 17 0 0 0 15.4 4l-.2.4a12 12 0 0 1 3.4 1.7 15 15 0 0 0-12.9 0A12 12 0 0 1 9 4.4L8.6 4a17 17 0 0 0-4.2 1.2C1.6 9.3.9 13.3 1.2 17.2A17 17 0 0 0 6.4 20l.9-1.5a11 11 0 0 1-1.5-.7l.4-.3a12 12 0 0 0 10.4 0l.4.3c-.5.3-1 .5-1.5.7L16 20a17 17 0 0 0 5.2-2.8c.4-4.5-.7-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg></span>
+            <span><b>Add the bot</b><span>Free, under a minute</span></span>
+          </span>
+        </a>
+        <a class="plate cut-lg action-link reveal d1" href="https://dash.chell.fr">
+          <span class="plate-inner cut-lg action">
+            <span class="ai cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></span>
+            <span><b>Dashboard</b><span>Configure everything, no commands</span></span>
+          </span>
+        </a>
+        <a class="plate cut-lg action-link reveal d2" href="https://dash.chell.fr/commandes">
+          <span class="plate-inner cut-lg action">
+            <span class="ai cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 8 4 4-4 4M13 16h5"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span>
+            <span><b>103 commands</b><span>The full reference</span></span>
+          </span>
+        </a>
+        <a class="plate cut-lg action-link reveal d3" href="https://discord.gg/pKj8U2enwD" target="_blank" rel="noopener">
+          <span class="plate-inner cut-lg action">
+            <span class="ai cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            <span><b>Support</b><span>Community help server</span></span>
+          </span>
+        </a>
+      </div>
+
+      <div class="trust">
+        <span class="trust-item"><img src="/assets/brands/discord.svg" alt="" width="17" height="17"> Verified by Discord</span>
+        <span class="trust-item"><img class="logo-on-light" src="/assets/brands/botillon-light.svg" alt="" width="17" height="17"><img class="logo-on-dark" src="/assets/brands/botillon-dark.svg" alt="" width="17" height="17"> Verified on Botillon</span>
+        <span class="trust-item"><img src="/assets/brands/cloudflare.svg" alt="" width="17" height="17"> Hosted on Cloudflare</span>
+        <span class="trust-item"><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 12 2 2 4-4"/><path d="M12 2 4 5v6c0 5 3.4 8.3 8 11 4.6-2.7 8-6 8-11V5l-8-3z"/></svg> GDPR compliant</span>
+      </div>
+
+      <div class="stat-strip cut-lg reveal">
+        <div class="cell">
+          <div class="num"><span data-count="guilds">2,000</span><span class="suffix">+</span></div>
+          <div class="lbl">Discord servers</div>
+          <div class="live"><i></i> live</div>
+        </div>
+        <div class="cell">
+          <div class="num"><span data-count="users">147,080</span><span class="suffix">+</span></div>
+          <div class="lbl">Total users</div>
+          <div class="live">as of 15 Oct 2026</div>
+        </div>
+        <div class="cell">
+          <div class="num"><span data-count="commands">103</span></div>
+          <div class="lbl">Commands</div>
+          <div class="live">10 categories</div>
+        </div>
+        <div class="cell">
+          <div class="num"><span>0</span><span class="suffix">€</span></div>
+          <div class="lbl">Free &amp; unlimited</div>
+          <div class="live">AI included</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="features">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Features</span>
+        <h2>One bot, your whole toolkit</h2>
+        <p>Moderation, levels, economy, tickets, fun, AI and music — together, consistent and ready in a few clicks.</p>
+      </div>
+
+      <div class="bento">
+        <article class="tile plate cut-lg span-3 reveal">
+          <div class="plate-inner cut-lg card">
+            <span class="ico cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.3 8 11 4.6-2.7 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <h3>Protection &amp; anti-raid</h3>
+            <p>AI AutoModeration, anti-raid, anti-bot and anti-ghostping: Chell filters, warns and sanctions before your server falls apart.</p>
+            <div class="tags"><span>AutoMod AI</span><span>Anti-raid</span><span>Anti-ghostping</span><span>Anti-spam</span></div>
+          </div>
+        </article>
+
+        <article class="tile plate cut-lg span-3 reveal d1">
+          <div class="plate-inner cut-lg card">
+            <span class="ico cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg></span>
+            <h3>Unlimited free AI</h3>
+            <p>Ask anything, generate images, summarise a voice note or run a search: Chell AI is included, with no credits and no usage cap.</p>
+            <div class="tags"><span>Text</span><span>Images</span><span>Audio</span><span>Search</span></div>
+          </div>
+        </article>
+
+        <article class="tile plate cut-lg span-2 reveal">
+          <div class="plate-inner cut-lg card">
+            <span class="ico cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+            <h3>Levels &amp; XP</h3>
+            <p>A complete leveling system: text and voice XP, rank cards, role rewards and leaderboards.</p>
+            <div class="tags"><span>Leveling</span><span>Roles</span><span>Leaderboard</span></div>
+          </div>
+        </article>
+
+        <article class="tile plate cut-lg span-2 reveal d1">
+          <div class="plate-inner cut-lg card">
+            <span class="ico cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
+            <h3>Advanced management</h3>
+            <p>Tickets, recruitment, auto-roles, menus, server logs and statistics.</p>
+            <div class="tags"><span>Tickets</span><span>Logs</span><span>Auto-roles</span></div>
+          </div>
+        </article>
+
+        <article class="tile plate cut-lg span-2 reveal d2">
+          <div class="plate-inner cut-lg card">
+            <span class="ico cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7S9.5 2 7 2a2.5 2.5 0 0 0 0 5M12 7s2.5-5 5-5a2.5 2.5 0 0 1 0 5"/></svg></span>
+            <h3>Fun &amp; engagement</h3>
+            <p>Giveaways, polls, confessions, reaction roles, economy, shop and built messages.</p>
+            <div class="tags"><span>Giveaways</span><span>Polls</span><span>Economy</span></div>
+          </div>
+        </article>
+
+        <article class="tile plate cut-lg span-2 reveal">
+          <div class="plate-inner cut-lg card">
+            <span class="ico cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+            <h3>Music &amp; radio</h3>
+            <p>Non-stop music and radio in your voice channels, plus built-in games (chess, checkers, connect four).</p>
+            <div class="tags"><span>Music</span><span>Radio</span><span>Games</span></div>
+          </div>
+        </article>
+
+        <article class="tile plate cut-lg span-2 reveal d1">
+          <div class="plate-inner cut-lg card">
+            <span class="ico cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg></span>
+            <h3>Configuration dashboard</h3>
+            <p>Set everything from the web, without typing a command: moderation, welcomes, tickets, levels, logs.</p>
+            <div class="tags"><span>Web</span><span>No commands</span><span>Mobile</span></div>
+          </div>
+        </article>
+
+        <article class="tile plate cut-lg span-2 reveal d2">
+          <div class="plate-inner cut-lg card">
+            <span class="ico cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <h3>Server statistics</h3>
+            <p>Activity, member growth, moderation and channels: clear dashboards to steer your community.</p>
+            <div class="tags"><span>Activity</span><span>Members</span><span>Moderation</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section wrap" id="commands">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Commands</span>
+        <h2>103 commands, 10 categories</h2>
+        <p>From moderation to economy, everything is reachable by slash command or context menu — and documented, option by option, on the dashboard.</p>
+      </div>
+
+      <div class="plate plate-accent cut-xl reveal">
+        <div class="plate-inner cut-xl">
+          <div class="cmd-frame cut-xl">
+            <div class="top">
+              <div class="big">103<small>commands</small></div>
+              <div>
+                <h2>The complete Chell command reference</h2>
+                <p>94 slash commands and 9 context menus, sorted by category, with their options and permissions. Kept in sync with the bot.</p>
+              </div>
+            </div>
+
+            <div class="cat-grid" aria-label="Command categories">
+              <span>Configuration <b>31</b></span>
+              <span>Moderation <b>14</b></span>
+              <span>Utilities <b>10</b></span>
+              <span>Administration <b>7</b></span>
+              <span>Entertainment <b>9</b></span>
+              <span>Information <b>8</b></span>
+              <span>Context menus <b>9</b></span>
+              <span>Economy &amp; levels <b>6</b></span>
+              <span>Community <b>5</b></span>
+              <span>Tools <b>4</b></span>
+            </div>
+
+            <div style="margin-top:2rem;display:flex;gap:.8rem;flex-wrap:wrap">
+              <a class="btn btn-primary btn-lg cut" href="https://dash.chell.fr/commandes">
+                Explore the 103 commands
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a class="btn btn-ghost btn-lg cut" href="https://dash.chell.fr">Configure on the dashboard</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="vote">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Support Chell</span>
+        <h2>Help Chell become #1</h2>
+        <p>Chell is free and always will be. One vote a day on bot lists is enough to help it get discovered — and it takes ten seconds.</p>
+      </div>
+
+      <div class="vote-layout">
+        <article class="tile plate plate-accent cut-lg vote-featured reveal">
+          <div class="plate-inner cut-lg">
+            <img class="shot" src="/assets/brands/botillon-og.png" alt="Chell featured on Botillon" width="1200" height="630" loading="lazy">
+            <div class="inner">
+              <div class="vt">
+                <span class="vi cut-sm" aria-hidden="true"><img class="logo-on-light" src="/assets/brands/botillon-light.svg" alt="" width="26" height="26"><img class="logo-on-dark" src="/assets/brands/botillon-dark.svg" alt="" width="26" height="26"></span>
+                <h3>Hand-verified on Botillon</h3>
+              </div>
+              <p>Botillon, the leading French bot list, features Chell. A daily vote and a review go a long way to help other servers find it.</p>
+              <div class="btn-row">
+                <a class="btn btn-primary btn-lg cut" href="https://botillon.fr/bots/chell" target="_blank" rel="noopener">Vote on Botillon</a>
+                <a class="btn btn-ghost btn-lg cut" href="https://botillon.fr/bots/chell" target="_blank" rel="noopener">Leave a review</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="vote-side">
+          <article class="tile plate cut-lg reveal d1">
+            <div class="plate-inner cut-lg card vote-card">
+              <div class="vt">
+                <span class="vi cut-sm" aria-hidden="true"><img src="/assets/brands/topgg.png" alt="" width="24" height="24"></span>
+                <h3>Top.gg</h3>
+              </div>
+              <p>The largest Discord bot list. A daily vote improves our visibility.</p>
+              <a class="btn btn-ghost cut" href="https://top.gg/bot/1383154920231796736/vote" target="_blank" rel="noopener">Vote on Top.gg</a>
+            </div>
+          </article>
+
+          <article class="tile plate cut-lg reveal d2">
+            <div class="plate-inner cut-lg card vote-card">
+              <div class="vt">
+                <span class="vi cut-sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+                <h3>The best help: spread the word</h3>
+              </div>
+              <p>Join the support server, report a bug or suggest an idea. Community feedback shapes Chell.</p>
+              <a class="btn btn-ghost cut" href="https://discord.gg/pKj8U2enwD" target="_blank" rel="noopener">Join the support</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="stats">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Statistics</span>
+        <h2>A community growing every day</h2>
+        <p>The figures below come from the official Discord application directory and update live.</p>
+      </div>
+
+      <div class="bento bento-4">
+        <div class="tile plate cut-lg reveal">
+          <div class="plate-inner cut-lg card stat-tile">
+            <div class="num"><span data-count="guilds">2,000</span><span class="suffix">+</span></div>
+            <div class="lbl">Active servers</div>
+            <div class="live"><i></i> updated live</div>
+          </div>
+        </div>
+        <div class="tile plate cut-lg reveal d1">
+          <div class="plate-inner cut-lg card stat-tile">
+            <div class="num"><span data-count="users">147,080</span><span class="suffix">+</span></div>
+            <div class="lbl">Total users</div>
+            <div class="live">historical total</div>
+          </div>
+        </div>
+        <div class="tile plate cut-lg reveal d2">
+          <div class="plate-inner cut-lg card stat-tile">
+            <div class="num"><span data-count="commands">103</span></div>
+            <div class="lbl">Available commands</div>
+            <div class="live">94 slash · 9 menus</div>
+          </div>
+        </div>
+        <div class="tile plate cut-lg reveal d3">
+          <div class="plate-inner cut-lg card stat-tile">
+            <div class="num"><span>24</span><span class="suffix">/7</span></div>
+            <div class="lbl">Availability</div>
+            <div class="live">hosted on Cloudflare</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dir-tags reveal" id="dir-tags" aria-label="Discord directory information"></div>
+
+      <h3 style="margin-top:3rem;font-size:1.3rem;" class="reveal">Chell in action</h3>
+      <p style="color:var(--muted);margin-top:0.5rem;" class="reveal">A look at the interface and modules, straight from the Discord directory.</p>
+
+      <div class="gallery reveal" style="margin-top:1.5rem;" tabindex="0" aria-label="Chell screenshots">
+        <figure class="cut-lg"><img src="/assets/shots/shot-1.png" alt="Chell — Discord server automation and moderation" width="1200" height="750" loading="lazy"><figcaption>Automation &amp; moderation</figcaption></figure>
+        <figure class="cut-lg"><img src="/assets/shots/shot-2.png" alt="Chell — configuration and management interface" width="1200" height="750" loading="lazy"><figcaption>Configuration &amp; management</figcaption></figure>
+        <figure class="cut-lg"><img src="/assets/shots/shot-3.png" alt="Chell — dashboards and statistics" width="1200" height="750" loading="lazy"><figcaption>Server statistics</figcaption></figure>
+        <figure class="cut-lg"><img src="/assets/shots/shot-4.png" alt="Chell — conversational artificial intelligence" width="1200" height="750" loading="lazy"><figcaption>Artificial intelligence</figcaption></figure>
+        <figure class="cut-lg"><img src="/assets/shots/shot-5.png" alt="Chell — entertainment, games and music" width="1200" height="750" loading="lazy"><figcaption>Entertainment &amp; music</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section wrap" id="team">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Team</span>
+        <h2>The people behind Chell</h2>
+        <p>Chell is built and maintained by a passionate French-speaking team.</p>
+      </div>
+
+      <div class="team-grid">
+        <article class="member plate reveal">
+          <div class="plate-inner cut-lg">
+            <div class="cover">
+              <img src="https://cdn.discordapp.com/banners/1365989943012229221/a_2ef88498f02554b02b1ec09402ed30d7.gif?size=512" alt="" loading="lazy" aria-hidden="true">
+            </div>
+            <div class="body">
+              <img class="avatar" src="https://cdn.discordapp.com/avatars/1365989943012229221/a_728b76d40518dc912f4277e181b266db.gif?size=128" alt="joynix28 avatar" width="76" height="76" loading="lazy">
+              <h3>joynix28</h3>
+              <div class="role">Founder &amp; owner</div>
+              <p>Behind Chell and its vision: a complete bot, genuinely free and accessible to everyone.</p>
+              <div class="links"><a href="https://discord.gg/H8csvTrs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.2A17 17 0 0 0 15.4 4l-.2.4a12 12 0 0 1 3.4 1.7 15 15 0 0 0-12.9 0A12 12 0 0 1 9 4.4L8.6 4a17 17 0 0 0-4.2 1.2C1.6 9.3.9 13.3 1.2 17.2A17 17 0 0 0 6.4 20l.9-1.5a11 11 0 0 1-1.5-.7l.4-.3a12 12 0 0 0 10.4 0l.4.3c-.5.3-1 .5-1.5.7L16 20a17 17 0 0 0 5.2-2.8c.4-4.5-.7-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg> Discord</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="member plate reveal d1">
+          <div class="plate-inner cut-lg">
+            <div class="cover">
+              <img src="https://cdn.discordapp.com/banners/1144911287134978128/01e39093fd277c6c040c24395aed1759.webp?size=512" alt="" loading="lazy" aria-hidden="true">
+            </div>
+            <div class="body">
+              <img class="avatar" src="https://cdn.discordapp.com/avatars/1144911287134978128/b0096ceb35d5e2910f5c580cf889170f.png?size=128" alt="thomas0535 avatar" width="76" height="76" loading="lazy">
+              <h3>thomas0535</h3>
+              <div class="role">Developer &amp; co-founder</div>
+              <p>Builds the bot's modules and bridges the gap between the team's ideas and the code.</p>
+              <div class="links"><a href="https://discord.gg/pKj8U2enwD" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.2A17 17 0 0 0 15.4 4l-.2.4a12 12 0 0 1 3.4 1.7 15 15 0 0 0-12.9 0A12 12 0 0 1 9 4.4L8.6 4a17 17 0 0 0-4.2 1.2C1.6 9.3.9 13.3 1.2 17.2A17 17 0 0 0 6.4 20l.9-1.5a11 11 0 0 1-1.5-.7l.4-.3a12 12 0 0 0 10.4 0l.4.3c-.5.3-1 .5-1.5.7L16 20a17 17 0 0 0 5.2-2.8c.4-4.5-.7-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg> Discord</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="member plate reveal d2">
+          <div class="plate-inner cut-lg">
+            <div class="cover">
+              <img src="https://cdn.discordapp.com/banners/1157346587845083218/a_4e0e0cc001114f013b3c4dad6808985b.gif?size=512" alt="" loading="lazy" aria-hidden="true">
+            </div>
+            <div class="body">
+              <img class="avatar" src="https://cdn.discordapp.com/avatars/1157346587845083218/1d947db88e27ab63888d216bef182265.png?size=128" alt="feulio avatar" width="76" height="76" loading="lazy">
+              <h3>feulio</h3>
+              <div class="role">Co-founder &amp; administrator</div>
+              <p>Looks after the community and support, keeping the server welcoming every day.</p>
+              <div class="links"><a href="https://discord.gg/pKj8U2enwD" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.2A17 17 0 0 0 15.4 4l-.2.4a12 12 0 0 1 3.4 1.7 15 15 0 0 0-12.9 0A12 12 0 0 1 9 4.4L8.6 4a17 17 0 0 0-4.2 1.2C1.6 9.3.9 13.3 1.2 17.2A17 17 0 0 0 6.4 20l.9-1.5a11 11 0 0 1-1.5-.7l.4-.3a12 12 0 0 0 10.4 0l.4.3c-.5.3-1 .5-1.5.7L16 20a17 17 0 0 0 5.2-2.8c.4-4.5-.7-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg> Discord</a></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section wrap" id="faq">
+      <div class="section-head center reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2>Everything about Chell</h2>
+      </div>
+
+      <div class="faq" itemscope itemtype="https://schema.org/FAQPage">
+        <details class="cut" open itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">Is Chell really free? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Yes. Chell is 100% free and unlimited, including its AI module. There is no credit to buy, no subscription and no feature locked behind a paid tier.</div></div>
+        </details>
+        <details class="cut" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">How do I add Chell to my Discord server? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Click “Add to Discord”, pick your server, then authorise the requested permissions. Installation takes under a minute; configuration is done from the <a href="https://dash.chell.fr">web dashboard</a>.</div></div>
+        </details>
+        <details class="cut" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">What features does Chell offer? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">AI moderation (AutoMod), anti-raid and anti-ghostping, levels and XP, economy and shop, tickets and recruitment, auto-roles and menus, giveaways, polls and confessions, logs, statistics, games, music and radio — all configurable from a web dashboard.</div></div>
+        </details>
+        <details class="cut" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">How many commands does Chell have? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">103 commands: 94 slash commands and 9 context menus, across 10 categories. The <a href="https://dash.chell.fr/commandes">full reference</a> is on the dashboard.</div></div>
+        </details>
+        <details class="cut" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">Is Chell verified by Discord? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Yes. Chell is certified and listed in the official Discord application directory. It is also hand-verified on the French bot list <a href="https://botillon.fr/bots/chell">Botillon</a>.</div></div>
+        </details>
+        <details class="cut" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">Is the bot in French or English? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Chell is a French-speaking bot: its commands and messages are in French, making it a great fit for French-speaking communities. This English page presents it for international discovery.</div></div>
+        </details>
+        <details class="cut" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">Who created Chell? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Chell was created by <strong>joynix28</strong> (founder and owner), with <strong>thomas0535</strong> as developer and co-founder and <strong>feulio</strong> as co-founder and administrator.</div></div>
+        </details>
+        <details class="cut" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">Can I configure Chell without typing commands? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Yes. Everything is configured from the <a href="https://dash.chell.fr">web dashboard</a>: welcomes, moderation, tickets, levels, logs and more, without writing a single command.</div></div>
+        </details>
+        <details class="cut" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <summary itemprop="name">How many servers is Chell on? <span class="sign cut-xs" aria-hidden="true">+</span></summary>
+          <div class="answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text">Chell is installed on more than 2,000 Discord servers with over 147,000 users. The server count is updated live on this page from the official Discord directory.</div></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="cta-plate plate plate-accent cut-xl reveal">
+        <div class="plate-inner cut-xl">
+          <div class="cta cut-xl">
+            <span class="glow" aria-hidden="true"></span>
+            <h2>Ready to upgrade your server?</h2>
+            <p>Add Chell in under a minute and get moderation, AI, levels and every module — for free, with no limits.</p>
+            <div class="btn-row">
+              <a class="btn btn-primary btn-lg cut" href="https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.2A17 17 0 0 0 15.4 4l-.2.4a12 12 0 0 1 3.4 1.7 15 15 0 0 0-12.9 0A12 12 0 0 1 9 4.4L8.6 4a17 17 0 0 0-4.2 1.2C1.6 9.3.9 13.3 1.2 17.2A17 17 0 0 0 6.4 20l.9-1.5a11 11 0 0 1-1.5-.7l.4-.3a12 12 0 0 0 10.4 0l.4.3c-.5.3-1 .5-1.5.7L16 20a17 17 0 0 0 5.2-2.8c.4-4.5-.7-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>
+                Add Chell to Discord
+              </a>
+              <a class="btn btn-ghost btn-lg cut" href="https://dash.chell.fr">Open the dashboard</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="brand" href="/en/">
+            <img src="/assets/logo-96.png" alt="" width="34" height="34">
+            Chell <span class="tag cut-xs">BOT</span>
+          </a>
+          <p>The all-in-one French Discord bot: AI moderation, levels, advanced management, fun and entertainment. Free, unlimited and verified.</p>
+          <div class="foot-social">
+            <a href="https://discord.gg/pKj8U2enwD" target="_blank" rel="noopener" aria-label="Discord support server"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 5.2A17 17 0 0 0 15.4 4l-.2.4a12 12 0 0 1 3.4 1.7 15 15 0 0 0-12.9 0A12 12 0 0 1 9 4.4L8.6 4a17 17 0 0 0-4.2 1.2C1.6 9.3.9 13.3 1.2 17.2A17 17 0 0 0 6.4 20l.9-1.5a11 11 0 0 1-1.5-.7l.4-.3a12 12 0 0 0 10.4 0l.4.3c-.5.3-1 .5-1.5.7L16 20a17 17 0 0 0 5.2-2.8c.4-4.5-.7-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg></a>
+            <a href="https://github.com/joynix28" target="_blank" rel="noopener" aria-label="joynix28 on GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></a>
+          </div>
+        </div>
+
+        <div class="foot-col">
+          <h4>Product</h4>
+          <a href="https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands" target="_blank" rel="noopener">Add the bot</a>
+          <a href="https://dash.chell.fr">Dashboard</a>
+          <a href="https://dash.chell.fr/commandes">Command reference</a>
+          <a href="#features">Features</a>
+        </div>
+
+        <div class="foot-col">
+          <h4>Support</h4>
+          <a href="https://top.gg/bot/1383154920231796736/vote" target="_blank" rel="noopener">Vote on Top.gg</a>
+          <a href="https://botillon.fr/bots/chell" target="_blank" rel="noopener">Vote on Botillon</a>
+          <a href="https://discord.gg/pKj8U2enwD" target="_blank" rel="noopener">Discord support</a>
+          <a href="https://go.chell.fr/CGU" target="_blank" rel="noopener">Terms of use</a>
+        </div>
+
+        <div class="foot-col">
+          <h4>For AI &amp; crawlers</h4>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/en/index.md">index.md (Markdown)</a>
+          <a href="/sitemap.xml">XML sitemap</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="https://go.chell.fr/privacy" target="_blank" rel="noopener">Privacy</a>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span>© <span id="year">2026</span> Chell. All rights reserved.</span>
+        <span>Independent site, not affiliated with Discord Inc. · <a href="/llms.txt">llms.txt</a> · <a href="/sitemap.xml">sitemap</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/app.js" defer></script>
+</body>
+</html>

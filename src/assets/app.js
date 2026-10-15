@@ -41,16 +41,40 @@
   (function reveal() {
     var nodes = $$('.reveal');
     if (!nodes.length) return;
-    if (!('IntersectionObserver' in window)) {
-      nodes.forEach(function (n) { n.classList.add('in'); });
-      return;
-    }
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Sans IntersectionObserver, ou si l'utilisateur réduit les animations, on ne
+    // masque jamais rien : le contenu reste visible tel quel.
+    if (!('IntersectionObserver' in window) || reduce) return;
+
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var pending = [];
+    nodes.forEach(function (n) {
+      // Seuls les blocs encore sous la ligne de flottaison sont masqués : le
+      // contenu visible au chargement ne clignote pas et ne disparaît jamais.
+      if (n.getBoundingClientRect().top > vh * 0.9) {
+        n.classList.add('pre');
+        pending.push(n);
+      }
+    });
+    if (!pending.length) return;
+
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        if (e.isIntersecting) {
+          e.target.classList.remove('pre');
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-    nodes.forEach(function (n) { io.observe(n); });
+    }, { rootMargin: '0px 0px -5% 0px', threshold: 0 });
+    pending.forEach(function (n) { io.observe(n); });
+
+    // Filet de sécurité : quoi qu'il arrive, rien ne reste masqué au bout de 2 s.
+    window.setTimeout(function () {
+      pending.forEach(function (n) {
+        if (n.classList.contains('pre')) { n.classList.remove('pre'); n.classList.add('in'); }
+      });
+    }, 2000);
   })();
 
   /* --------------------------- Année du footer -------------------------- */
@@ -65,16 +89,28 @@
     if (!el) return;
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
-    var words = [
-      'la modération par IA',
-      'les niveaux & l’XP',
-      'les tickets & le recrutement',
-      'les giveaways & sondages',
-      'la musique & la radio',
-      "l'anti-raid",
-      "l'économie & la boutique",
-      'la configuration (dashboard)'
-    ];
+    var lang = (document.documentElement.lang || 'fr').slice(0, 2);
+    var words = lang === 'en'
+      ? [
+          'AI moderation',
+          'levels & XP',
+          'tickets & recruitment',
+          'giveaways & polls',
+          'music & radio',
+          'anti-raid',
+          'economy & shop',
+          'configuration (dashboard)'
+        ]
+      : [
+          'la modération par IA',
+          'les niveaux & l’XP',
+          'les tickets & le recrutement',
+          'les giveaways & sondages',
+          'la musique & la radio',
+          "l'anti-raid",
+          "l'économie & la boutique",
+          'la configuration (dashboard)'
+        ];
     var i = 0;
     setInterval(function () {
       i = (i + 1) % words.length;
@@ -87,7 +123,9 @@
 
   /* ------------------ Statistiques live + annuaire Discord -------------- */
   (function live() {
-    var fmt = new Intl.NumberFormat('fr-FR');
+    var lang = (document.documentElement.lang || 'fr').slice(0, 2);
+    var fmt = new Intl.NumberFormat(lang === 'en' ? 'en-GB' : 'fr-FR');
+    var guildSuffix = lang === 'en' ? 'servers' : 'serveurs';
     var APP_ID = '1383154920231796736';
 
     function animate(el, to) {
@@ -108,7 +146,7 @@
       if (typeof n !== 'number' || !isFinite(n) || n <= 0) return;
       $$('[data-count="guilds"]').forEach(function (el) { animate(el, n); });
       $$('[data-stat-inline="guilds"]').forEach(function (el) {
-        el.textContent = fmt.format(n) + '+ serveurs';
+        el.textContent = fmt.format(n) + '+ ' + guildSuffix;
       });
     }
 

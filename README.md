@@ -46,32 +46,38 @@ Les polices sont **auto-hébergées** (aucune requête vers Google Fonts).
 ```
 .
 ├── content/
-│   └── index.md            # source de la version Markdown (agents)
+│   ├── index.md            # source de la version Markdown FR (agents)
+│   └── en.md               # idem, anglais
 ├── functions/
 │   ├── _middleware.js      # Markdown for Agents (négociation de contenu)
 │   ├── llms.txt.js         # llms.txt régénéré en direct (GEO)
 │   └── api/stats.js        # proxy + cache des stats Discord
 ├── scripts/
-│   ├── build.mjs           # copie src/ → dist/ + génère index.md, sitemap daté
+│   ├── build.mjs           # copie src/ → dist/ + index.md, sitemap daté, cache-busting
 │   └── serve.mjs           # serveur de prévisualisation local
 ├── src/
-│   ├── index.html          # la page d'accueil
+│   ├── index.html          # accueil FR
+│   ├── en/index.html       # accueil EN
 │   ├── 404.html
 │   ├── assets/
 │   │   ├── chell.css       # système de design complet
-│   │   ├── app.js          # thème, menu, mot-clé rotatif, stats live
+│   │   ├── app.js          # thème, menu, mot-clé rotatif, stats live (FR/EN)
 │   │   ├── og.png          # image de partage 1200×630
 │   │   ├── logo-96.png, brand-mark.png, icon-512.png
-│   │   └── shots/          # captures d'écran
+│   │   ├── brands/         # logos Discord, Botillon, Cloudflare, Top.gg
+│   │   └── shots/          # captures d'écran (normalisées 1200×750)
 │   ├── fonts/              # woff2 auto-hébergés
 │   ├── robots.txt
 │   ├── sitemap.xml         # (daté à la compilation)
 │   ├── site.webmanifest
 │   ├── _headers            # en-têtes HTTP (Cloudflare Pages)
-│   └── _redirects          # /add, /support, /dashboard, /commandes…
+│   └── _redirects          # /add, /support, /dashboard, /commandes, /en…
 ├── package.json
 └── LICENSE
 ```
+
+Deux langues : **français** (`/`) et **anglais** (`/en/`), avec `hreflang`,
+sélecteur de langue et versions Markdown dédiées.
 
 `functions/` reste à la racine : Cloudflare Pages le déploie à côté du statique
 et **ce n'est pas** copié dans `dist/`.
@@ -136,9 +142,19 @@ curl https://chell.fr/ -H "Accept: text/markdown"
 ```
 
 - Accessibilité : lien d'évitement, contrastes, `aria-*`, respect de
-  `prefers-reduced-motion`.
+  `prefers-reduced-motion`. Le contenu reste visible sans JavaScript (animations
+  d'apparition conditionnées à une classe `.js`).
 - Performance : aucune dépendance, polices locales préchargées, images en
-  `loading="lazy"`.
+  `loading="lazy"`, et **cache-busting par empreinte** (`?v=…` posé à la
+  compilation) : les assets sont servis immuables un an sans jamais rester
+  périmés après un déploiement.
+
+## Langues
+
+- `/` — français (langue par défaut, `x-default`).
+- `/en/` — anglais.
+- `hreflang` croisés dans les deux pages et dans le sitemap, sélecteur FR/EN
+  dans l'en-tête, et un fichier Markdown par langue.
 
 ## Données
 

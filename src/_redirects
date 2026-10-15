@@ -1,13 +1,16 @@
 # Redirections — chell.fr
 # Format Cloudflare Pages : /source  /destination  [code]
 
+# Le site anglais est un vrai sous-dossier (/en/). Cette ligne garantit que
+# /en (sans slash) ne parte pas en 404.
+/en                  /en/  301
+
 # Liens déclarés dans l'annuaire Discord (doivent exister tels quels).
 /add                 https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands  302
 /support             https://discord.gg/pKj8U2enwD  302
 
 # Raccourcis maison.
-/discord             https://discord.gg/pKj8U2enwD  302
-/invite              https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands  302
+/discord             https://discord.gg/pKj8U2enwD  302/invite              https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands  302
 /ajouter             https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands  302
 
 # Vers le dashboard et ses pages.

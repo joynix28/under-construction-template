@@ -1,14 +1,14 @@
-// Build statique — copie `src/` vers `dist/`, puis génère les fichiers pour
-// les agents (Markdown) et le sitemap daté.
+// Build statique — copie `src/` vers `dist/`, génère les versions Markdown pour
+// les agents, un sitemap daté, et pose un cache-busting sur les assets.
 //
 //   node scripts/build.mjs
 //
-// Cloudflare Pages exécute `npm run build` puis publie `dist`. Le site n'a
-// aucune dépendance ni étape de compilation : le HTML, le CSS et le JS sont
-// livrés tels quels. `functions/` (Pages Functions) reste à la racine et n'est
-// pas copié : Cloudflare le déploie séparément, à côté du statique.
+// Cloudflare Pages exécute `npm run build` puis publie `dist`. Aucune
+// dépendance : HTML, CSS et JS sont livrés tels quels. `functions/` (Pages
+// Functions) reste à la racine et n'est pas copié.
 
 import { cpSync, existsSync, mkdirSync, rmSync, statSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -30,18 +30,18 @@ rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist, { recursive: true });
 cpSync(src, dist, { recursive: true });
 
-/* 2. YAML frontmatter : le titre et la description sont lus depuis le HTML
-      pour que les deux versions ne puissent pas diverger. */
-function metaFromHtml() {
-  const html = readFileSync(join(src, 'index.html'), 'utf8');
-  const decode = (s) =>
-    s
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-      .replace(/&nbsp;/g, ' ');
+/* 2. Métadonnées lues depuis le HTML (source de vérité unique). */
+const decode = (s) =>
+  s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ');
+
+function metaFromHtml(path) {
+  const html = readFileSync(path, 'utf8');
   const pick = (re) => {
     const m = html.match(re);
     return m ? decode(m[1].replace(/\s+/g, ' ').trim()) : '';
@@ -54,8 +54,13 @@ function metaFromHtml() {
   };
 }
 
-/* 3. Nombre de serveurs : récupéré à la compilation (Cloudflare a le réseau).
-      En cas d'échec, on retombe sur la valeur de la page. */
+function jsonLdBlocks(html) {
+  return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map((m) => m[1].trim())
+    .filter(Boolean);
+}
+
+/* 3. Nombre de serveurs : récupéré à la compilation (Cloudflare a le réseau). */
 async function guildCount() {
   try {
     const res = await fetch(
@@ -71,40 +76,67 @@ async function guildCount() {
   }
 }
 
-/* 4. Blocs JSON-LD, repris tels quels depuis la page : les données
-      structurées de la version Markdown restent identiques à celles du HTML. */
-function jsonLdBlocks(html) {
-  return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
-    .map((m) => m[1].trim())
-    .filter(Boolean);
-}
+/* 4. Versions Markdown (Markdown for Agents), une par langue. */
+const guilds = await guildCount();
+const mdJobs = [
+  { tpl: join(content, 'index.md'), page: join(src, 'index.html'), out: join(dist, 'index.md') },
+  { tpl: join(content, 'en.md'), page: join(src, 'en', 'index.html'), out: join(dist, 'en', 'index.md') },
+];
 
-const meta = metaFromHtml();
-
-/* 5. index.md — Markdown for Agents, servi en content negotiation. */
-const mdTemplate = join(content, 'index.md');
-if (existsSync(mdTemplate)) {
-  const guilds = await guildCount();
+for (const job of mdJobs) {
+  if (!existsSync(job.tpl) || !existsSync(job.page)) continue;
+  const meta = metaFromHtml(job.page);
   const jsonld = jsonLdBlocks(meta.html);
   const block = jsonld.length ? '\n```json\n' + jsonld.join('\n') + '\n```\n' : '';
-  let md = readFileSync(mdTemplate, 'utf8')
+  let md = readFileSync(job.tpl, 'utf8')
     .replaceAll('__DATE__', today)
     .replaceAll('__GUILDS__', guilds)
     .replace('__JSONLD__', block);
-  // Le frontmatter est réécrit depuis le HTML : source de vérité unique.
   const fm = `---\ntitle: ${meta.title}\ndescription: ${meta.description}\nimage: ${meta.image}\n---\n`;
   md = md.replace(/^---[\s\S]*?---\n/, fm);
-  writeFileSync(join(dist, 'index.md'), md);
+  mkdirSync(dirname(job.out), { recursive: true });
+  writeFileSync(job.out, md);
 }
 
-/* 6. Sitemap daté. */
+/* 5. Sitemap daté. */
 const sitemap = join(src, 'sitemap.xml');
 if (existsSync(sitemap)) {
-  writeFileSync(
-    join(dist, 'sitemap.xml'),
-    readFileSync(sitemap, 'utf8').replaceAll('__DATE__', today)
-  );
+  writeFileSync(join(dist, 'sitemap.xml'), readFileSync(sitemap, 'utf8').replaceAll('__DATE__', today));
 }
+
+/* 6. Cache-busting des assets.
+      Les fichiers sous /assets/ sont servis immuables un an (voir _headers).
+      On ajoute donc une empreinte du contenu en paramètre d'URL : dès qu'un
+      fichier change, l'URL change et le cache est contourné. Le HTML, lui, est
+      revalidé à chaque visite. */
+function bustAssets() {
+  const htmlFiles = [];
+  (function collect(dir) {
+    for (const name of readdirSync(dir)) {
+      const p = join(dir, name);
+      if (statSync(p).isDirectory()) collect(p);
+      else if (name.endsWith('.html')) htmlFiles.push(p);
+    }
+  })(dist);
+
+  const hashes = new Map();
+  const ref = /(?<!chell\.fr)(\/assets\/[A-Za-z0-9._\-/]+)/g;
+
+  for (const file of htmlFiles) {
+    const html = readFileSync(file, 'utf8');
+    writeFileSync(
+      file,
+      html.replace(ref, (m) => {
+        if (!hashes.has(m)) {
+          const local = join(dist, m);
+          hashes.set(m, existsSync(local) ? createHash('sha1').update(readFileSync(local)).digest('hex').slice(0, 10) : '0');
+        }
+        return `${m}?v=${hashes.get(m)}`;
+      })
+    );
+  }
+}
+bustAssets();
 
 /* 7. Récapitulatif. */
 let files = 0;

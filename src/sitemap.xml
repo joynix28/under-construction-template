@@ -8,6 +8,7 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://chell.fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chell.fr/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://chell.fr/"/>
     <image:image>
       <image:loc>https://chell.fr/assets/og.png</image:loc>
@@ -75,5 +76,14 @@
     <lastmod>__DATE__</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://chell.fr/en/</loc>
+    <lastmod>__DATE__</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://chell.fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chell.fr/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chell.fr/"/>
   </url>
 </urlset>
