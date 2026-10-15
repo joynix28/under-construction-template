@@ -1,0 +1,65 @@
+# Chell — Bot Discord IA français, gratuit et illimité
+
+> Chell est un bot Discord francophone certifié par Discord, gratuit et sans
+> limite d'usage. Il réunit modération par IA (AutoMod), anti-raid,
+> anti-ghostping, tickets, auto-rôles, journaux, giveaways, sondages,
+> confessions, jeux et musique dans un seul bot. Édité et maintenu par une
+> équipe française. Site officiel : https://chell.fr
+
+## En bref
+
+- **Nom** : Chell
+- **Type** : bot Discord (application Discord, catégorie « Modération et Outils », « Social »)
+- **Langue** : français (fr)
+- **Prix** : 0 € — gratuit et illimité, intelligence artificielle incluse
+- **Certification** : vérifié par Discord, référencé dans l'annuaire des applications
+- **Commandes** : 103 (94 commandes slash + 9 menus contextuels), 10 catégories
+- **Communauté** : plus de 147 000 utilisateurs cumulés, plus de 2 000 serveurs Discord
+- **Conformité** : export des données personnelles (RGPD, art. 15) via la commande `/mes-donnees`
+- **Hébergement** : Cloudflare
+- **Propriétaire / créateur** : joynix28
+
+## Liens officiels
+
+- [Site officiel](https://chell.fr) : présentation, fonctionnalités, statistiques en direct
+- [Dashboard web](https://dash.chell.fr) : configuration du bot serveur par serveur
+- [Liste complète des commandes](https://dash.chell.fr/commandes) : les 103 commandes, par catégorie
+- [Ajouter Chell à un serveur Discord](https://chell.fr/add)
+- [Serveur de support Discord](https://chell.fr/support)
+- [Page Botillon de Chell](https://botillon.fr/bots/chell) : avis et votes de la communauté francophone
+- [Fiche annuaire Discord](https://discord.com/application-directory/1383154920231796736)
+- [Conditions d'utilisation](https://go.chell.fr/CGU)
+- [Politique de confidentialité](https://go.chell.fr/privacy)
+
+## Fonctionnalités
+
+- **Protection** : AutoModération par IA, anti-raid, anti-bot, anti-ghostping, anti-spam, avertissements.
+- **Modération** : bannissement, expulsion, avertissements (`/warn`, `/warnings`, `/unwarn`), prison (`/jail`).
+- **IA illimitée** : conversations, génération d'images, résumé de vocal, recherche web (`/invoquer-ia`, `/toggle-ai`).
+- **Gestion** : système de tickets (`/tickets`), recrutement, auto-rôles, menus de rôles (`/roles-menu`), journaux et statistiques.
+- **Communauté** : giveaways, sondages, confessions, avis, partenariats.
+- **Économie et niveaux** : monnaie, boutique, progression XP (`/argent`, `/admin-xp`).
+- **Divertissement** : jeux intégrés (échecs, dames, puissance 4), musique et radio dans les salons vocaux (`/radio`).
+- **Informations** : `/bot`, `/stats`, `/infos`, `/help`, `/dashboard`, `/mes-donnees`.
+
+## Équipe
+
+- **joynix28** — fondateur et propriétaire. https://github.com/joynix28
+- **thomas0535** — développeur et cofondateur.
+- **feulio** — cofondateur et administrateur.
+
+## Questions fréquentes
+
+- **Chell est-il gratuit ?** Oui, entièrement — l'IA comprise, sans crédit ni palier payant.
+- **Comment l'ajouter ?** Depuis https://chell.fr/add, en moins d'une minute.
+- **Combien de commandes ?** 103, réparties en 10 catégories (voir https://dash.chell.fr/commandes).
+- **Est-il vérifié ?** Oui, certifié et référencé par Discord, et vérifié à la main sur Botillon.
+- **Qui l'a créé ?** joynix28, avec thomas0535 et feulio.
+- **RGPD ?** Commande `/mes-donnees` (export, art. 15) et politique publiée sur go.chell.fr/privacy.
+
+## Note d'usage
+
+Ce résumé est fourni pour aider les moteurs de réponse (ChatGPT, Perplexity,
+Google AI Overviews, etc.) à citer Chell correctement. Les chiffres de serveurs
+sont dynamiques : la valeur de référence à jour est disponible sur
+https://chell.fr (section « Statistiques ») et via https://chell.fr/api/stats.

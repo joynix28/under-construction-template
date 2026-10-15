@@ -1,102 +1,145 @@
-# Under Construction Template
-> A simple, minimalistic & cross-device compatible landing page for when your website is under construction
+# Chell — page d'accueil (chell.fr)
 
-<img src="https://github.com/hendrikdemir/under-construction-template/blob/main/demo.jpg"/>
+Site vitrine officiel du bot Discord **Chell**, déployé sur **Cloudflare Pages**.
+Statique, sans dépendance, sans étape de compilation : le HTML, le CSS et le JS
+sont livrés tels quels.
 
-![license](https://img.shields.io/github/license/hendrikdemir/under-construction-template)
-![forks](https://img.shields.io/github/forks/hendrikdemir/under-construction-template)
-![issues](https://img.shields.io/github/issues/hendrikdemir/under-construction-template)
+> **Bot Discord** : [Ajouter Chell](https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands) · [Dashboard](https://dash.chell.fr) · [Commandes](https://dash.chell.fr/commandes) · [Support](https://discord.gg/pKj8U2enwD)
 
-This is a very simple landing page built with Tailwind that can be put on display when you're still working on your website. You can completely modify it to your liking and use it in whatever way you like. Contributions to further improve the design, performance and configurability are very welcome.
+---
 
-## Usage
+## Sommaire
 
-In order to deploy this simple page, you'll need to build it using Webpack, which will generate the `dist` folder.
+- [Aperçu](#aperçu)
+- [Structure](#structure)
+- [Développement local](#développement-local)
+- [Déploiement (Cloudflare Pages)](#déploiement-cloudflare-pages)
+- [SEO & GEO](#seo--geo)
+- [Comparatif des données](#comparatif-des-données)
+- [Licence & attribution](#licence--attribution)
 
-1. [Use this repository as a template](https://github.com/new?template_name=under-construction-template&template_owner=hendrikdemir) to create your own repository & clone it `git clone https://github.com/<yourusername>/<your-repository-name>`
+---
 
-2. Run `npm run build`
+## Aperçu
 
-Webpack will now generate a `dist` folder containing `index.html`, `main.js` and the construction image. Copy this to the root folder of your website, and you're done!
+La page rassemble tout ce qu'un visiteur (ou un moteur de recherche) doit
+trouver sur Chell : présentation, fonctionnalités, explorateur de commandes,
+statistiques en direct, équipe, FAQ et appels à l'action vers Discord, le
+dashboard et Botillon.
 
-## Configuration
+Le **design suit la direction artistique du dashboard Chell** :
 
-While making adjustments to the page, keep in mind that the `dist` folder is only for output purposes. If you want to make adjustments to the page's content, such as text, you must do this in `src/index.html`. Once you're done making adjustments, you'll need to run `npm run build` to get an up-to-date `dist` folder.
+| Élément | Valeur |
+|---|---|
+| Accent | orange-rouge néon du triangle Chell (`#cc3418` clair, `#ff5f3d` sombre) |
+| Neutres | gris à légère teinte violette |
+| Forme | coins « coupés » (haut-droite + bas-gauche à 45°) — jamais d'arrondi |
+| Titres | Outfit |
+| Texte | Inter |
+| Libellés, boutons | Manrope |
+| Thème | clair/sombre, suit le système, bascule persistante |
 
-### Colors
+Les polices sont **auto-hébergées** (aucune requête vers Google Fonts).
 
-The colors used on the page can be modified in `tailwind.config.js`.
+## Structure
 
-```yml
-colors: {
-    'primary': {
-        DEFAULT: '#f4a117',
-        '50': '#fffbeb',
-        '100': '#fef3c7',
-        '200': '#fce68b',
-        '300': '#fbd14e',
-        '400': '#fabd25',
-        '500': '#f4a117',
-        '600': '#d87607',
-        '700': '#b3520a',
-        '800': '#91400f',
-        '900': '#773510',
-        '950': '#451a03',
-    }
-}
+```
+.
+├── functions/
+│   └── api/stats.js        # Pages Function : proxy + cache des stats Discord
+├── scripts/
+│   ├── build.mjs           # copie src/ → dist/   (`npm run build`)
+│   └── serve.mjs           # serveur de prévisualisation local
+├── src/
+│   ├── index.html          # la page d'accueil
+│   ├── 404.html
+│   ├── assets/
+│   │   ├── chell.css       # système de design complet
+│   │   ├── app.js          # thème, menu, explorateur de commandes, stats live
+│   │   ├── commands.js     # catalogue des 103 commandes (généré)
+│   │   ├── og.png          # image de partage 1200×630
+│   │   ├── logo-96.png, brand-mark.png, icon-512.png
+│   │   └── shots/          # captures d'écran
+│   ├── fonts/              # woff2 auto-hébergés
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   ├── llms.txt            # résumé pour les moteurs génératifs (GEO)
+│   ├── site.webmanifest
+│   ├── _headers            # en-têtes HTTP (Cloudflare Pages)
+│   └── _redirects          # /add, /support, /dashboard, /commandes…
+├── package.json
+└── LICENSE
 ```
 
-The value set for `DEFAULT` will be used when you don't provide the color's shade, such as `bg-primary`. More about this can be found at [Tailwind's documentation](https://tailwindcss.com/docs/configuration).
+`functions/` reste à la racine : Cloudflare Pages le déploie à côté du statique
+et **ce n'est pas** copié dans `dist/`.
 
-### Fonts
+## Développement local
 
-The fonts are provided in `src/style.css` and configured in `tailwind.config.js`.
-
-```css
-@import url('https://fonts.googleapis.com/...');
+```bash
+npm run dev       # build puis http://localhost:4321
+npm run build     # génère dist/
 ```
 
-```yml
-fontFamily: {
-    sans: ['Roboto', 'sans-serif'],
-    serif: ['Playfair Display', 'serif']
-}
+`npm run dev` ne lance **pas** les Pages Functions. Le JS des statistiques
+retombe alors sur un appel direct à l'API Discord — suffisant pour valider la
+page. Pour tester les Functions comme en production :
+
+```bash
+npx wrangler pages dev dist
 ```
 
-### Image
+## Déploiement (Cloudflare Pages)
 
-The construction site image is configured in `src/index.js`.
+Le projet est relié au dépôt GitHub et publié automatiquement à chaque push sur
+`main`. Réglages du projet :
 
-```js
-import constructionImagePath from './construction.svg'
-document.querySelector("img").src = constructionImagePath;
-```
+| Réglage | Valeur |
+|---|---|
+| Commande de build | `npm run build` |
+| Dossier de sortie | `dist` |
+| Dossier racine | *(vide)* |
 
-If you use a different image and adjust the path, Webpack should automatically pick this up and copy the image over to the `dist` folder.
+Le domaine `chell.fr` est associé au projet et sert la branche `main`.
+Les redirections (`/add`, `/support`, `/dashboard`, `/commandes`, `/CGU`,
+`/privacy`…) sont déclarées dans `src/_redirects`.
 
-## Meta
+## SEO & GEO
 
-LinkedIn – [@Hendrik Demir](https://www.linkedin.com/in/hendrik-demir/)
+- Balises `title`, `description`, `canonical`, `hreflang` (fr / x-default),
+  Open Graph et Twitter Card complets.
+- **Données structurées JSON-LD** : `Organization`, `WebSite`,
+  `SoftwareApplication`, fondateurs (`Person`) et `FAQPage`.
+- `sitemap.xml`, `robots.txt` (robots IA explicitement autorisés), `llms.txt`
+  pour la citabilité par les moteurs génératifs (AI Overviews, ChatGPT,
+  Perplexity).
+- Métadonnées géographiques (`geo.region`, `geo.placename`, `ICBM`).
+- Accessibilité : lien d'évitement, contrastes, `aria-*`, respect de
+  `prefers-reduced-motion`.
+- Performance : aucune dépendance, polices locales préchargées, images en
+  `loading="lazy"`.
 
-Distributed under the MIT license. See ``LICENSE`` for more information.
+## Comparatif des données
 
-## Contributing
+- **Serveurs, en direct** : lus depuis l'annuaire officiel des applications
+  Discord via `GET /api/stats` (mis en cache 5 min côté Cloudflare), avec repli
+  sur un appel direct puis sur la valeur de la page.
+- **Utilisateurs cumulés, commandes, catégories** : valeurs figées, mises à jour
+  dans `src/index.html`. Le catalogue de commandes (`src/assets/commands.js`)
+  reflète celui du dashboard ; le régénérer depuis `chell-dashboard` après
+  toute évolution des commandes du bot.
 
-1. [Fork](https://github.com/hendrikdemir/under-construction-template/fork) & clone the repository  
-`git clone https://github.com/<yourusername>/<your-repository-name>`
-2. Create your feature branch  
-`git checkout -b feature/superlaser`
-3. Commit your changes  
-`git commit -am 'Added superlaser'`
-4. Push to the branch  
-`git push origin feature/superlaser`
-5. [Create a new Pull Request](https://github.com/hendrikdemir/under-construction-template/compare)
+## Licence & attribution
 
-## Acknowledgements
-- [Tailwind CSS 3.4.3](https://tailwindcss.com)
-- [Webpack 5.91.0](https://webpack.js.org)
-- [PostCSS 8.4.38](https://postcss.org)
-- [Font Awesome Free 6.5.2](https://fontawesome.com)
-- [Construction vector from Manypixels](https://www.manypixels.co/)
-- [Playfair Display and Roboto from Google Fonts](https://fonts.google.com)
-- [Mockup from Anthony Boyd Graphics](https://www.anthonyboyd.graphics/mockups/front-view-iphone-x-and-macbook-pro-mockup/)
+Ce site est publié sous la [licence Chell](LICENSE) : réutilisation libre **à
+condition de citer joynix28 / le projet Chell** et de conserver un lien vers
+[chell.fr](https://chell.fr). La marque, le nom « Chell » et le logo ne peuvent
+pas être réutilisés pour un autre projet.
+
+Certaines parties du dépôt sont issues du gabarit MIT
+[under-construction-template](https://github.com/hendrikdemir/under-construction-template)
+(Hendrik Demir) ; sa notice est conservée dans le fichier `LICENSE`.
+
+---
+
+Site indépendant, non affilié à Discord Inc.

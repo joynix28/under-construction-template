@@ -1,21 +1,67 @@
-MIT License
+Licence Chell — Page d'accueil (chell.fr)
+==========================================
 
-Copyright (c) 2024 Hendrik Demir
+Copyright (c) 2026 joynix28 et l'équipe Chell — https://chell.fr
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Réutilisation autorisée, à une condition : citer la source.
+------------------------------------------------------------
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Le code source (HTML, CSS, JavaScript) de ce site peut être consulté, copié,
+modifié et réutilisé librement — y compris à des fins personnelles ou
+commerciales — **à condition de créditer l'auteur** et de conserver cette
+notice :
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+  • un crédit clair et visible du type
+      « Basé sur le site du bot Chell — https://chell.fr »
+    avec un lien cliquable vers https://chell.fr ;
+  • la présente notice (le fichier LICENSE) conservée dans toute copie ou
+    partie substantielle du projet.
+
+Si vous réutilisez ce travail, merci de le citer. C'est la seule obligation.
+
+Marque, nom et logo
+-------------------
+
+Le nom « Chell », le logo et l'identité visuelle associée restent la propriété
+de leurs auteurs. Ils ne peuvent pas être réutilisés pour un autre bot, un autre
+produit ou un autre site sans autorisation écrite. Citer l'auteur ne donne
+aucun droit sur la marque.
+
+Aucune garantie
+---------------
+
+Ce site est fourni « en l'état », sans garantie d'aucune sorte. Les auteurs ne
+sauraient être tenus responsables d'un dommage lié à son utilisation.
+
+Ce site n'est pas affilié à Discord Inc. « Discord » est une marque de
+Discord Inc.
+
+--------------------------------------------------------------------------
+
+Notice du gabarit d'origine (MIT)
+---------------------------------
+
+Certaines parties de ce dépôt dérivent de « under-construction-template », publié
+sous licence MIT. Sa notice est conservée ci-dessous, conformément à ses termes :
+
+  MIT License
+
+  Copyright (c) 2024 Hendrik Demir
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.

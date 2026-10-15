@@ -1,3 +1,12 @@
-node_modules
-dist
-.DS_STORE
+# Sortie de build (générée par `npm run build`)
+dist/
+
+# Dépendances (le projet n'en a aucune, mais npm peut en créer)
+node_modules/
+
+# Divers
+.DS_Store
+*.log
+.env
+.env.*
+.wrangler/

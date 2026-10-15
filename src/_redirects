@@ -1,0 +1,32 @@
+# Redirections — chell.fr
+# Format Cloudflare Pages : /source  /destination  [code]
+
+# Liens déclarés dans l'annuaire Discord (doivent exister tels quels).
+/add                 https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands  302
+/support             https://discord.gg/pKj8U2enwD  302
+
+# Raccourcis maison.
+/discord             https://discord.gg/pKj8U2enwD  302
+/invite              https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands  302
+/ajouter             https://discord.com/oauth2/authorize?client_id=1383154920231796736&permissions=8&scope=bot%20applications.commands  302
+
+# Vers le dashboard et ses pages.
+/dashboard           https://dash.chell.fr  301
+/dash                https://dash.chell.fr  301
+/commandes           https://dash.chell.fr/commandes  301
+/commands            https://dash.chell.fr/commandes  301
+/guide               https://dash.chell.fr/commandes  301
+
+# Légal (sources uniques côté legals).
+/cgu                 https://go.chell.fr/CGU  301
+/CGU                 https://go.chell.fr/CGU  301
+/cgu.html            https://go.chell.fr/CGU  301
+/conditions          https://go.chell.fr/CGU  301
+/privacy             https://go.chell.fr/privacy  301
+/privacy.html        https://go.chell.fr/privacy  301
+/confidentialite     https://go.chell.fr/privacy  301
+
+# Pages tierces.
+/botillon            https://botillon.fr/bots/chell  301
+/avis                https://botillon.fr/bots/chell  301
+/github              https://github.com/joynix28  302

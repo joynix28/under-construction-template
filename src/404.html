@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page introuvable (404) — Chell</title>
+  <meta name="description" content="Cette page n'existe pas ou a été déplacée. Reviens à l'accueil de Chell, au dashboard ou au bot Discord.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#0e0d12">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/chell.css">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('chell-theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <main class="wrap" style="min-height:100dvh;display:grid;place-content:center;text-align:center;padding-block:4rem">
+    <a class="brand" href="/" style="justify-content:center;margin-bottom:1.5rem">
+      <img src="/assets/logo-96.png" alt="" width="34" height="34"> Chell
+    </a>
+    <p class="eyebrow" style="justify-content:center">Erreur 404</p>
+    <h1 style="font-size:clamp(2.5rem,8vw,4.5rem);margin-top:0.8rem">Cette page a <span class="grad">disparu</span></h1>
+    <p style="color:var(--muted);max-width:34rem;margin:1.2rem auto 0">La page demandée n'existe pas ou a été déplacée. En attendant, tu peux revenir à l'accueil ou continuer vers le bot.</p>
+    <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-top:2rem">
+      <a class="btn btn-primary cut" href="/">Retour à l'accueil</a>
+      <a class="btn btn-ghost cut" href="https://dash.chell.fr">Ouvrir le dashboard</a>
+      <a class="btn btn-ghost cut" href="https://discord.gg/pKj8U2enwD" target="_blank" rel="noopener">Support</a>
+    </div>
+  </main>
+</body>
+</html>
