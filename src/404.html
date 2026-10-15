@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/assets/chell.css">
   <script>
     (function () {
+      document.documentElement.classList.add('js');
       try {
         var stored = localStorage.getItem('chell-theme');
         var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;

@@ -59,6 +59,9 @@
   <!-- Le thème est posé avant le premier rendu : pas de flash blanc à l'ouverture. -->
   <script>
     (function () {
+      // `js` n'est ajouté que si le script s'exécute : les animations d'apparition
+      // ne masquent donc jamais le contenu pour un crawler ou sans JavaScript.
+      document.documentElement.classList.add('js');
       try {
         var stored = localStorage.getItem('chell-theme');
         var dark = stored ? stored === 'dark'
