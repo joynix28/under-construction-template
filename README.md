@@ -45,25 +45,27 @@ Les polices sont **auto-hébergées** (aucune requête vers Google Fonts).
 
 ```
 .
+├── content/
+│   └── index.md            # source de la version Markdown (agents)
 ├── functions/
-│   └── api/stats.js        # Pages Function : proxy + cache des stats Discord
+│   ├── _middleware.js      # Markdown for Agents (négociation de contenu)
+│   ├── llms.txt.js         # llms.txt régénéré en direct (GEO)
+│   └── api/stats.js        # proxy + cache des stats Discord
 ├── scripts/
-│   ├── build.mjs           # copie src/ → dist/   (`npm run build`)
+│   ├── build.mjs           # copie src/ → dist/ + génère index.md, sitemap daté
 │   └── serve.mjs           # serveur de prévisualisation local
 ├── src/
 │   ├── index.html          # la page d'accueil
 │   ├── 404.html
 │   ├── assets/
 │   │   ├── chell.css       # système de design complet
-│   │   ├── app.js          # thème, menu, explorateur de commandes, stats live
-│   │   ├── commands.js     # catalogue des 103 commandes (généré)
+│   │   ├── app.js          # thème, menu, mot-clé rotatif, stats live
 │   │   ├── og.png          # image de partage 1200×630
 │   │   ├── logo-96.png, brand-mark.png, icon-512.png
 │   │   └── shots/          # captures d'écran
 │   ├── fonts/              # woff2 auto-hébergés
 │   ├── robots.txt
-│   ├── sitemap.xml
-│   ├── llms.txt            # résumé pour les moteurs génératifs (GEO)
+│   ├── sitemap.xml         # (daté à la compilation)
 │   ├── site.webmanifest
 │   ├── _headers            # en-têtes HTTP (Cloudflare Pages)
 │   └── _redirects          # /add, /support, /dashboard, /commandes…
@@ -106,28 +108,47 @@ Les redirections (`/add`, `/support`, `/dashboard`, `/commandes`, `/CGU`,
 
 ## SEO & GEO
 
-- Balises `title`, `description`, `canonical`, `hreflang` (fr / x-default),
-  Open Graph et Twitter Card complets.
-- **Données structurées JSON-LD** : `Organization`, `WebSite`,
-  `SoftwareApplication`, fondateurs (`Person`) et `FAQPage`.
-- `sitemap.xml`, `robots.txt` (robots IA explicitement autorisés), `llms.txt`
-  pour la citabilité par les moteurs génératifs (AI Overviews, ChatGPT,
-  Perplexity).
-- Métadonnées géographiques (`geo.region`, `geo.placename`, `ICBM`).
+- Balises `title`, `description`, `keywords`, `canonical`, `hreflang`
+  (fr / x-default), Open Graph et Twitter Card complets.
+- **Données structurées JSON-LD** : `Organization` (+ `contactPoint`),
+  `WebSite`, `WebPage`, `SoftwareApplication` (featureList, screenshots, offers,
+  award), fondateurs (`Person`), `BreadcrumbList` et `FAQPage`.
+- `sitemap.xml` (daté à la compilation, image sitemap), `robots.txt` (robots IA
+  explicitement autorisés), métadonnées géographiques.
+- **`llms.txt` régénéré en direct** par `functions/llms.txt.js` : date et nombre
+  de serveurs rafraîchis chaque heure, sans redéploiement.
+
+### Markdown for Agents (version maison, gratuite)
+
+Cloudflare propose cette fonctionnalité sur les offres payantes ; elle est ici
+réimplémentée sans surcoût :
+
+1. `content/index.md` est la source de la fiche en Markdown.
+2. `scripts/build.mjs` en génère `dist/index.md` (frontmatter repris du HTML,
+   nombre de serveurs récupéré au build, blocs JSON-LD recopiés à l'identique).
+3. `functions/_middleware.js` renvoie ce Markdown avec
+   `Content-Type: text/markdown` quand un agent envoie `Accept: text/markdown`
+   (sinon le HTML). En-têtes `Vary: Accept`, `Content-Signal` et
+   `X-Robots-Tag: noindex` (pas de contenu dupliqué).
+
+```bash
+curl https://chell.fr/ -H "Accept: text/markdown"
+```
+
 - Accessibilité : lien d'évitement, contrastes, `aria-*`, respect de
   `prefers-reduced-motion`.
 - Performance : aucune dépendance, polices locales préchargées, images en
   `loading="lazy"`.
 
-## Comparatif des données
+## Données
 
 - **Serveurs, en direct** : lus depuis l'annuaire officiel des applications
-  Discord via `GET /api/stats` (mis en cache 5 min côté Cloudflare), avec repli
-  sur un appel direct puis sur la valeur de la page.
-- **Utilisateurs cumulés, commandes, catégories** : valeurs figées, mises à jour
-  dans `src/index.html`. Le catalogue de commandes (`src/assets/commands.js`)
-  reflète celui du dashboard ; le régénérer depuis `chell-dashboard` après
-  toute évolution des commandes du bot.
+  Discord via `GET /api/stats` (mis en cache une heure côté Cloudflare), avec
+  repli sur un appel direct puis sur la valeur de la page. Les **tags, catégories
+  et la certification** affichés dans la section Statistiques proviennent aussi
+  de cet annuaire.
+- **Utilisateurs cumulés, commandes, catégories** : valeurs figées, à mettre à
+  jour dans `src/index.html` et `content/index.md` si les chiffres évoluent.
 
 ## Licence & attribution
 

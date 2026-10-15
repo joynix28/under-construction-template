@@ -59,83 +59,34 @@
     if (el) el.textContent = String(new Date().getFullYear());
   })();
 
-  /* ------------------------ Explorateur de commandes -------------------- */
-  (function commands() {
-    var grid = $('#cmd-grid');
-    var filters = $('#cmd-filters');
-    if (!grid || !filters || !window.CHELL_COMMANDS) return;
-
-    var cats = window.CHELL_COMMAND_CATEGORIES || [];
-    var commands = window.CHELL_COMMANDS || [];
-    var PER_PAGE = 9;
-    var active = 'all';
-    var limit = PER_PAGE;
-
-    function el(tag, cls, text) {
-      var n = document.createElement(tag);
-      if (cls) n.className = cls;
-      if (text != null) n.textContent = text;
-      return n;
-    }
-
-    function render() {
-      var list = active === 'all' ? commands : commands.filter(function (c) { return c.category === active; });
-      grid.textContent = '';
-      list.slice(0, limit).forEach(function (c) {
-        var card = el('article', 'cmd cut-sm');
-        var name = el('div', 'name');
-        name.appendChild(el('span', 'slash', '/'));
-        name.appendChild(document.createTextNode(c.name));
-        if (c.kind !== 'slash') name.appendChild(el('span', 'slash', ' (menu)'));
-        card.appendChild(name);
-        card.appendChild(el('p', null, c.description));
-        grid.appendChild(card);
-      });
-
-      var rest = list.length - limit;
-      var more = $('#cmd-rest');
-      if (!more) {
-        more = el('p', 'cmd-rest');
-        more.id = 'cmd-rest';
-        more.style.cssText = 'text-align:center;color:var(--muted);font-size:.9rem;margin-top:1.2rem';
-        grid.parentNode.insertBefore(more, grid.nextSibling);
-      }
-      if (rest > 0) {
-        more.textContent = '';
-        var btn = el('button', 'btn btn-ghost btn-sm cut', '+' + rest + ' autres commandes');
-        btn.type = 'button';
-        btn.addEventListener('click', function () { limit += 9; render(); });
-        more.appendChild(btn);
-      } else {
-        more.textContent = '';
-      }
-    }
-
-    function chip(id, label, count) {
-      var b = el('button', 'chip cut-sm');
-      b.type = 'button';
-      b.setAttribute('role', 'tab');
-      b.dataset.cat = id;
-      b.appendChild(document.createTextNode(label));
-      if (count != null) b.appendChild(el('span', 'n', String(count)));
-      b.addEventListener('click', function () {
-        active = id; limit = PER_PAGE;
-        $$('.chip', filters).forEach(function (c) { c.classList.remove('active'); });
-        b.classList.add('active');
-        render();
-      });
-      return b;
-    }
-
-    filters.appendChild(chip('all', 'Toutes', commands.length));
-    cats.forEach(function (c) { filters.appendChild(chip(c.id, c.label, c.count)); });
-    $('.chip', filters).classList.add('active');
-    render();
-    grid.setAttribute('data-ready', '1');
+  /* --------------------- Mot-clé rotatif dans le hero ------------------- */
+  (function rotator() {
+    var el = $('#hero-rot');
+    if (!el) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    var words = [
+      'la modération par IA',
+      'les niveaux & l’XP',
+      'les tickets & le recrutement',
+      'les giveaways & sondages',
+      'la musique & la radio',
+      "l'anti-raid",
+      "l'économie & la boutique",
+      'la configuration (dashboard)'
+    ];
+    var i = 0;
+    setInterval(function () {
+      i = (i + 1) % words.length;
+      el.textContent = words[i];
+      el.classList.remove('swap');
+      void el.offsetWidth;
+      el.classList.add('swap');
+    }, 2400);
   })();
 
-  /* --------------------------- Statistiques live ------------------------ */
-  (function stats() {
+  /* ------------------ Statistiques live + annuaire Discord -------------- */
+  (function live() {
     var fmt = new Intl.NumberFormat('fr-FR');
     var APP_ID = '1383154920231796736';
 
@@ -161,23 +112,47 @@
       });
     }
 
-    function fromDirect() {
-      return fetch('https://discord.com/api/v9/application-directory-static/applications/' + APP_ID, { headers: { Accept: 'application/json' } })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (j) { return j && j.directory_entry ? j.directory_entry.guild_count : null; })
-        .catch(function () { return null; });
+    // Les tags de l'annuaire officiel Discord : preuve de vie, en direct.
+    function applyDirectory(data) {
+      var host = $('#dir-tags');
+      if (!host || !data) return;
+      var chips = [];
+      if (data.verified) chips.push('Vérifié Discord');
+      (data.tags || []).forEach(function (t) { chips.push(t); });
+      (data.categories || []).forEach(function (c) { chips.push(c); });
+      if (!chips.length) return;
+      host.textContent = '';
+      chips.forEach(function (label) {
+        var s = document.createElement('span');
+        s.textContent = label;
+        host.appendChild(s);
+      });
+      if (typeof data.guilds === 'number') applyGuilds(data.guilds);
     }
 
     function fromProxy() {
       return fetch('/api/stats', { headers: { Accept: 'application/json' } })
         .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (j) { return j && typeof j.guilds === 'number' ? j.guilds : null; })
         .catch(function () { return null; });
     }
 
-    fromProxy().then(function (n) {
-      if (n != null) { applyGuilds(n); return; }
-      return fromDirect().then(applyGuilds);
+    function fromDirect() {
+      return fetch('https://discord.com/api/v9/application-directory-static/applications/' + APP_ID, { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    }
+
+    fromProxy().then(function (data) {
+      if (data && typeof data.guilds === 'number') { applyDirectory(data); return; }
+      // Repli : appel direct (CORS reflété par Discord), puis valeur de la page.
+      return fromDirect().then(function (j) {
+        if (!j) return;
+        var tags = [];
+        if (j.is_verified) tags.push('Vérifié Discord');
+        (j.tags || []).forEach(function (t) { tags.push(t); });
+        var cats = (j.categories || []).map(function (c) { return c.name; });
+        applyDirectory({ guilds: j.directory_entry && j.directory_entry.guild_count, verified: j.is_verified, tags: j.tags, categories: cats });
+      });
     });
   })();
 })();

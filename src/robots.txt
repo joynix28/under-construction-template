@@ -59,3 +59,6 @@ Disallow: /api/
 
 Sitemap: https://chell.fr/sitemap.xml
 Host: chell.fr
+
+# Résumé structuré pour les moteurs génératifs (régénéré chaque heure).
+# LLMs: https://chell.fr/llms.txt

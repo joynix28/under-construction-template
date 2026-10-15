@@ -28,3 +28,14 @@
 # Le HTML est revalidé à chaque visite pour diffuser les mises à jour.
 /
   Cache-Control: public, max-age=0, must-revalidate
+
+# Version Markdown (Markdown for Agents) : accessible, mais pas indexée comme
+# duplicate du HTML. La réponse négociée est servie par functions/_middleware.js.
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
+  Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+/*.md
+  X-Robots-Tag: noindex
+  Content-Signal: ai-train=yes, search=yes, ai-input=yes

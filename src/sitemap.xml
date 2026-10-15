@@ -4,44 +4,76 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://chell.fr/</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>__DATE__</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://chell.fr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://chell.fr/"/>
     <image:image>
       <image:loc>https://chell.fr/assets/og.png</image:loc>
-      <image:title>Chell — bot Discord IA gratuit, vérifié et illimité</image:title>
+      <image:title>Chell — bot Discord français gratuit, vérifié et illimité</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://chell.fr/assets/shots/shot-1.png</image:loc>
+      <image:title>Chell — automatisations et modération du serveur Discord</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://chell.fr/assets/shots/shot-2.png</image:loc>
+      <image:title>Chell — interface de configuration et de gestion</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://chell.fr/assets/shots/shot-3.png</image:loc>
+      <image:title>Chell — tableaux de bord et statistiques</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://chell.fr/assets/shots/shot-4.png</image:loc>
+      <image:title>Chell — intelligence artificielle conversationnelle</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://chell.fr/assets/shots/shot-5.png</image:loc>
+      <image:title>Chell — divertissement, jeux et musique</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://chell.fr/#fonctionnalites</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>__DATE__</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://chell.fr/#commandes</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>__DATE__</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://chell.fr/#statistiques</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>__DATE__</lastmod>
     <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chell.fr/#vote</loc>
+    <lastmod>__DATE__</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://chell.fr/#equipe</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>__DATE__</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://chell.fr/#faq</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>__DATE__</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chell.fr/index.md</loc>
+    <lastmod>__DATE__</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
